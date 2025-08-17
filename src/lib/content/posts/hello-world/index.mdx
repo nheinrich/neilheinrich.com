@@ -8,13 +8,16 @@ topics: [Dev]
 format: Experiment
 pinned: true
 status: active
+slug: hello-world
 ---
 
-import Counter from '@components/Counter.svelte'
+<script>
+  import Counter from '../../../components/Counter.svelte';
+</script>
 
 # Hello World
 
-This is the first post on this mysterious blog. It's built with **Astro**, **Svelte 5**, and **MDX**.
+This is the first post on this mysterious blog. It's built with **SvelteKit**, **Svelte 5**, and **MDX**.
 
 ## Why This Blog?
 
@@ -24,7 +27,7 @@ A space to share learnings, experiments, and ideas that have historically stayed
 
 Here's a Svelte component embedded directly in this MDX post:
 
-<Counter client:visible />
+<Counter />
 
 ## Code Example
 
