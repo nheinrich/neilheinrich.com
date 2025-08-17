@@ -1,6 +1,10 @@
 <script>
   import { preloadData, pushState, goto } from '$app/navigation';
   import FilterBar from '$lib/components/FilterBar.svelte';
+  import Icon from '$lib/components/Icon.svelte';
+  import Arrow from '$lib/components/Arrow.svelte';
+  import Header from '$lib/components/Header.svelte';
+  import { getIconForFormat } from '$lib/format';
   
   /** @type {import('./$types').PageProps} */
   let { data } = $props();
@@ -61,6 +65,9 @@
   <meta name="description" content="Personal blog about building, learning, and creating." />
 </svelte:head>
 
+<!-- Header -->
+<Header />
+
 <!-- Hero Section -->
 <section class="hero">
   <div class="container">
@@ -116,14 +123,14 @@
             {/if}
             
             <span class="format">
-              {post.frontmatter.format.slice(0, 1)}
+              <Icon type={getIconForFormat(post.frontmatter.format)} />
             </span>
             
             <div class="title">
               {#if post.frontmatter.collections && post.frontmatter.collections.length > 0}
                 <span class="collection">
                   {post.frontmatter.collections.join(', ')}
-                  →
+                  <Arrow />
                 </span>
               {/if}
               {post.frontmatter.title}
@@ -299,17 +306,24 @@
     justify-content: center;
     width: 2rem;
     height: 2rem;
-    background: var(--color-scarlet);
-    color: var(--color-cream);
-    border-radius: 50%;
-    font-weight: var(--font-weight-bold);
-    font-size: 0.875rem;
+  }
+
+  .format :global(svg) {
+    width: 2rem;
+    height: 2rem;
+    transform: translateY(0.25rem);
   }
 
   .collection {
     color: var(--color-cream);
     font-weight: var(--font-weight-bold);
     margin-right: 0.5rem;
+  }
+
+  .collection :global(svg) {
+    margin-left: 0.5rem;
+    vertical-align: middle;
+    fill: var(--color-cream);
   }
 
   .topics {
