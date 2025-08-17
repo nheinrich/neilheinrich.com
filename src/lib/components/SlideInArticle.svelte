@@ -3,9 +3,22 @@
   import { goto } from '$app/navigation';
   
   // Reactive slide-in state using Svelte 5 runes
-  let isOpen = $derived(!!$page.state?.slideOpen);
+  let shouldShow = $derived(!!$page.state?.slideOpen);
+  let isOpen = $state(false);
   let articleData = $derived($page.state?.articleData);
   let articleSlug = $derived($page.state?.articleSlug);
+  
+  // Handle smooth enter/exit animations
+  $effect(() => {
+    if (shouldShow) {
+      // Small delay to ensure DOM is ready before animating in
+      setTimeout(() => {
+        isOpen = true;
+      }, 10);
+    } else {
+      isOpen = false;
+    }
+  });
   
   // Dynamic component loading
   let articleComponent = $state(null);
@@ -46,7 +59,7 @@
   
   // Add global keydown listener when open
   $effect(() => {
-    if (isOpen) {
+    if (shouldShow) {
       document.addEventListener('keydown', handleKeydown);
       // Prevent body scroll when slide-in is open
       document.body.style.overflow = 'hidden';
@@ -63,7 +76,7 @@
   });
 </script>
 
-{#if isOpen && articleData}
+{#if shouldShow && articleData}
   <!-- Slide-in overlay with 120px margin design -->
   <div 
     class="slide-container" 
