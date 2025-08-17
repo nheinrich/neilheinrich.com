@@ -68,13 +68,6 @@
 <!-- Header -->
 <Header />
 
-<!-- Hero Section -->
-<section class="hero">
-  <div class="container">
-    <h1 class="hero-title">Latest Posts</h1>
-    <p class="hero-subtitle">Building, learning, and creating — one post at a time.</p>
-  </div>
-</section>
 
 <!-- Filter Section -->
 <section class="filters">
@@ -157,44 +150,12 @@
     --separator-height: 0.25rem;
   }
 
-  .hero {
-    padding-block: 2rem;
-  }
-
   .filters {
     padding-bottom: 0;
   }
 
   .content {
     padding-bottom: 0;
-  }
-
-  /* Hero Components */
-  .hero-title {
-    font-size: 3rem;
-    font-weight: 700;
-    color: var(--color-yellow);
-    margin-bottom: 1rem;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-  }
-
-  .hero-subtitle {
-    font-size: 1.5rem;
-    color: rgba(255, 255, 255, 0.9);
-    max-width: 48rem;
-  }
-
-  /* Responsive typography */
-  @media (min-width: 768px) {
-    .hero-title {
-      font-size: 4.5rem;
-    }
-
-    .hero-subtitle {
-      font-size: 1.5rem;
-    }
   }
 
   /* Filter Summary */

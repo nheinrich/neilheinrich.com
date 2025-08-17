@@ -113,6 +113,7 @@
   });
 </script>
 
+<h1>Fieldnotes</h1>
 <div class="header-with-filter">
   <h2>
     <button
