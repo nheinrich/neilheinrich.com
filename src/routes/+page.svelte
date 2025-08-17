@@ -76,8 +76,8 @@
   </div>
 </section>
 
-<!-- Content Section -->
-<section class="content">
+<!-- Filter Section -->
+<section class="filters">
   <div class="container">
     <!-- Filter controls -->
     <FilterBar {filters} />
@@ -98,60 +98,67 @@
         </div>
       </div>
     {/if}
-    
-    <!-- Grid Header -->
-    <div class="grid header">
+  </div>
+</section>
+
+<!-- Posts Section -->
+<section class="content">
+  <!-- Grid Header -->
+  <div class="grid header">
+    <div class="container">
       <div class="format">Format</div>
       <div class="title">Title</div>
       <div class="topics">Topics</div>
       <div class="year">Year</div>
     </div>
-    
-    <!-- Posts List -->
-    <div class="list">
-      {#each posts as post}
-        <a 
-          href="/content/{post.slug}" 
-          class="link" 
-          data-pinned={post.frontmatter.pinned || null}
-          onclick={(e) => openArticleInSlideIn(e, post.slug)}
-          data-sveltekit-preload-data
-        >
-          <div class="grid container-grid">
-            {#if post.frontmatter.pinned}
-              <span class="pin" aria-label="Pinned post">★</span>
-            {/if}
-            
-            <span class="format">
-              <Icon type={getIconForFormat(post.frontmatter.format)} />
-            </span>
-            
-            <div class="title">
-              {#if post.frontmatter.collections && post.frontmatter.collections.length > 0}
-                <span class="collection">
-                  {post.frontmatter.collections.join(', ')}
-                  <Arrow />
-                </span>
-              {/if}
-              {post.frontmatter.title}
-            </div>
-            
-            <span class="topics">
-              {post.frontmatter.topics.join(', ')}
-            </span>
-            
-            <span class="year">
-              {new Date(post.frontmatter.date).getFullYear()}
-            </span>
-          </div>
-        </a>
-      {/each}
-    </div>
-    
-    {#if posts.length === 0}
-      <p class="empty">No posts found</p>
-    {/if}
   </div>
+  
+  <!-- Posts List -->
+  <div class="list">
+    {#each posts as post}
+      <a 
+        href="/content/{post.slug}" 
+        class="link" 
+        data-pinned={post.frontmatter.pinned || null}
+        onclick={(e) => openArticleInSlideIn(e, post.slug)}
+        data-sveltekit-preload-data
+      >
+        <div class="grid container">
+          {#if post.frontmatter.pinned}
+            <span class="pin" aria-label="Pinned post">★</span>
+          {/if}
+          
+          <span class="format">
+            <Icon type={getIconForFormat(post.frontmatter.format)} />
+          </span>
+          
+          <div class="title">
+            {#if post.frontmatter.collections && post.frontmatter.collections.length > 0}
+              <span class="collection">
+                {post.frontmatter.collections.join(', ')}
+                <Arrow />
+              </span>
+            {/if}
+            {post.frontmatter.title}
+          </div>
+          
+          <span class="topics">
+            {post.frontmatter.topics.join(', ')}
+          </span>
+          
+          <span class="year">
+            {new Date(post.frontmatter.date).getFullYear()}
+          </span>
+        </div>
+      </a>
+    {/each}
+  </div>
+  
+  {#if posts.length === 0}
+    <div class="container">
+      <p class="empty">No posts found</p>
+    </div>
+  {/if}
 </section>
 
 <style>
@@ -162,6 +169,10 @@
 
   .hero {
     padding-block: 2rem;
+  }
+
+  .filters {
+    padding-bottom: 0;
   }
 
   .content {
@@ -323,7 +334,16 @@
   .collection :global(svg) {
     margin-left: 0.5rem;
     vertical-align: middle;
-    fill: var(--color-cream);
+    transform: translateY(-1px) scale(0.8);
+  }
+
+  .collection :global(path) {
+    fill: var(--color-umber);
+    transition: fill 400ms ease-out;
+  }
+
+  .link:hover .collection :global(path) {
+    fill: var(--color-blue);
   }
 
   .topics {
