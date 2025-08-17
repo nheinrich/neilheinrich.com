@@ -137,7 +137,7 @@
         <div class="content">
           <!-- Render the dynamically loaded MDX content -->
           {#if articleComponent}
-            <svelte:component this={articleComponent} />
+            {@render articleComponent()}
           {:else}
             <p>Loading content...</p>
           {/if}
