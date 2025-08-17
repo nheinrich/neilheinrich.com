@@ -50,25 +50,26 @@ export interface FilterState {
  * Get all available post slugs by scanning the content directory
  */
 export async function getAllPostSlugs(): Promise<string[]> {
-  // In development, we need to manually maintain this list
-  // In production, this would ideally come from a build-time scan
+  // Start with our test post to verify the system works
   return [
-    'canon-post',
-    'drowning-in-architectural-decisions',
-    'hello-world',
-    'learning-vs-doing',
-    'mabel-ai-friend',
-    'mabel-backend',
-    'mabel-memory-architecture',
-    'mabel-user-research',
-    'managing-from-bottom',
-    'perfection-is-task-dependent',
-    'product-maestro',
-    'quantum-work',
-    'skeleton-notion-template',
-    'smaller-teams-are-better',
-    'structuring-async-teams',
-    'temporal-fidelity'
+    'test-post'
+    // TODO: Add the rest of the posts once we fix MDX processing
+    // 'canon-post',
+    // 'drowning-in-architectural-decisions',
+    // 'hello-world',
+    // 'learning-vs-doing',
+    // 'mabel-ai-friend',
+    // 'mabel-backend',
+    // 'mabel-memory-architecture',
+    // 'mabel-user-research',
+    // 'managing-from-bottom',
+    // 'perfection-is-task-dependent',
+    // 'product-maestro',
+    // 'quantum-work',
+    // 'skeleton-notion-template',
+    // 'smaller-teams-are-better',
+    // 'structuring-async-teams',
+    // 'temporal-fidelity'
   ];
 }
 
