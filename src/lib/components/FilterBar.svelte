@@ -1,281 +1,621 @@
 <script>
   import { goto } from '$app/navigation';
-  import { COLLECTIONS, TOPICS, FORMATS } from '$lib/content.ts';
+  import { COLLECTIONS, TOPICS } from '$lib/content.ts';
   
   /** @type {import('$lib/content.ts').FilterState} */
   let { filters = { collections: [], topics: [], format: 'all' } } = $props();
   
-  // Local state for filter controls using Svelte 5 runes
-  let selectedCollections = $state([...filters.collections]);
-  let selectedTopics = $state([...filters.topics]);
-  let selectedFormat = $state(filters.format);
+  // Local state synced with URL
+  let currentFormat = $state(filters.format);
+  let currentCollections = $state([...filters.collections]);
+  let currentTopics = $state([...filters.topics]);
   
-  // Reactive derived state to check if filters are active
-  let hasActiveFilters = $derived(
-    selectedCollections.length > 0 || 
-    selectedTopics.length > 0 || 
-    selectedFormat !== 'all'
+  // Filter panel state
+  let filterOpen = $state(false);
+  
+  // Calculate active filter count and text
+  const activeFilterCount = $derived(
+    currentCollections.length + currentTopics.length + (currentFormat !== 'all' ? 1 : 0)
   );
+  
+  const filterButtonText = $derived(() => {
+    const count = activeFilterCount;
+    if (count === 0) return 'Filter';
+    return count === 1 ? '1 filter' : `${count} filters`;
+  });
+  
+  const hasActiveFilters = $derived(activeFilterCount > 0);
   
   /**
    * Update URL with new filter state using SvelteKit navigation
    */
-  function updateFilters() {
+  function updateURL() {
     const params = new URLSearchParams();
     
-    // Add collections as comma-separated values
-    if (selectedCollections.length > 0) {
-      params.set('collections', selectedCollections.join(','));
+    if (currentCollections.length > 0) {
+      params.set('collections', currentCollections.join(','));
     }
     
-    // Add topics as comma-separated values  
-    if (selectedTopics.length > 0) {
-      params.set('topics', selectedTopics.join(','));
+    if (currentTopics.length > 0) {
+      params.set('topics', currentTopics.join(','));
     }
     
-    // Add format if not 'all'
-    if (selectedFormat !== 'all') {
-      params.set('format', selectedFormat);
+    if (currentFormat !== 'all') {
+      params.set('format', currentFormat);
     }
     
-    // Navigate with new filter params (server-side filtering)
     const queryString = params.toString();
     const newUrl = queryString ? `/?${queryString}` : '/';
     goto(newUrl, { replaceState: true });
   }
   
-  /**
-   * Clear all filters and return to unfiltered view
-   */
-  function clearFilters() {
-    selectedCollections = [];
-    selectedTopics = [];
-    selectedFormat = 'all';
-    goto('/', { replaceState: true });
+  function handleFormatChange(format) {
+    currentFormat = format;
+    updateURL();
   }
   
-  /**
-   * Toggle collection in the selected collections array
-   */
   function toggleCollection(collection) {
-    if (selectedCollections.includes(collection)) {
-      selectedCollections = selectedCollections.filter(c => c !== collection);
+    if (currentCollections.includes(collection)) {
+      currentCollections = currentCollections.filter(c => c !== collection);
     } else {
-      selectedCollections = [...selectedCollections, collection];
+      currentCollections = [...currentCollections, collection];
     }
-    updateFilters();
+    updateURL();
   }
   
-  /**
-   * Toggle topic in the selected topics array
-   */
   function toggleTopic(topic) {
-    if (selectedTopics.includes(topic)) {
-      selectedTopics = selectedTopics.filter(t => t !== topic);
+    if (currentTopics.includes(topic)) {
+      currentTopics = currentTopics.filter(t => t !== topic);
     } else {
-      selectedTopics = [...selectedTopics, topic];
+      currentTopics = [...currentTopics, topic];
     }
-    updateFilters();
+    updateURL();
   }
   
-  /**
-   * Handle format selection change
-   */
-  function handleFormatChange(event) {
-    selectedFormat = event.target.value;
-    updateFilters();
+  function clearAll() {
+    currentCollections = [];
+    currentTopics = [];
+    currentFormat = 'all';
+    updateURL();
   }
+  
+  // Handle click outside to close overlay
+  function handleClickOutside(event) {
+    if (filterOpen && !event.target.closest('.filter-button-container')) {
+      filterOpen = false;
+    }
+  }
+  
+  // Handle ESC key to close overlay
+  function handleEscKey(event) {
+    if (event.key === 'Escape' && filterOpen) {
+      filterOpen = false;
+    }
+  }
+  
+  // Add/remove event listeners when overlay opens/closes
+  $effect(() => {
+    if (typeof window !== 'undefined') {
+      if (filterOpen) {
+        document.addEventListener('click', handleClickOutside);
+        document.addEventListener('keydown', handleEscKey);
+      } else {
+        document.removeEventListener('click', handleClickOutside);
+        document.removeEventListener('keydown', handleEscKey);
+      }
+      
+      return () => {
+        document.removeEventListener('click', handleClickOutside);
+        document.removeEventListener('keydown', handleEscKey);
+      };
+    }
+  });
 </script>
 
-<div class="filter-bar">
-  <div class="filter-section">
-    <span class="filter-label">Collections</span>
-    <div class="filter-group" role="group" aria-label="Filter by collections">
-      {#each COLLECTIONS as collection}
-        <button
-          class="filter-toggle"
-          class:active={selectedCollections.includes(collection)}
-          onclick={() => toggleCollection(collection)}
-          type="button"
-          aria-pressed={selectedCollections.includes(collection)}
-        >
-          {collection}
-        </button>
-      {/each}
-    </div>
-  </div>
-  
-  <div class="filter-section">
-    <span class="filter-label">Topics</span>
-    <div class="filter-group" role="group" aria-label="Filter by topics">
-      {#each TOPICS as topic}
-        <button
-          class="filter-toggle"
-          class:active={selectedTopics.includes(topic)}
-          onclick={() => toggleTopic(topic)}
-          type="button"
-          aria-pressed={selectedTopics.includes(topic)}
-        >
-          {topic}
-        </button>
-      {/each}
-    </div>
-  </div>
-  
-  <div class="filter-section">
-    <label class="filter-label" for="format-select">Format</label>
-    <select 
-      id="format-select"
-      class="format-select"
-      bind:value={selectedFormat}
-      onchange={handleFormatChange}
+<div class="header-with-filter">
+  <h2>
+    <button
+      class="word"
+      class:active={currentFormat === 'all'}
+      onclick={() => handleFormatChange('all')}
     >
-      <option value="all">All Formats</option>
-      {#each FORMATS as format}
-        <option value={format}>{format}</option>
-      {/each}
-    </select>
-  </div>
-  
-  {#if hasActiveFilters}
-    <button 
-      class="clear-filters"
-      onclick={clearFilters}
-      type="button"
-      aria-label="Clear all filters"
-    >
-      Clear Filters
+      All
     </button>
-  {/if}
+    <button
+      class="word"
+      class:active={currentFormat === 'Essay'}
+      onclick={() => handleFormatChange('Essay')}
+    >
+      essays</button
+    >,
+    <button
+      class="word"
+      class:active={currentFormat === 'Experiment'}
+      onclick={() => handleFormatChange('Experiment')}
+    >
+      experiments
+    </button>
+    and
+    <button
+      class="word"
+      class:active={currentFormat === 'Note'}
+      onclick={() => handleFormatChange('Note')}
+    >
+      notes
+    </button>.
+  </h2>
+
+  <div class="filter-button-container">
+    <button
+      class="filter-button"
+      class:active={hasActiveFilters}
+      onclick={() => (filterOpen = !filterOpen)}
+      aria-expanded={filterOpen}
+      aria-label="Toggle content filters"
+    >
+      <svg
+        class="filter-icon"
+        width="16"
+        height="16"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+      >
+        <polygon points="22,3 2,3 10,12.46 10,19 14,21 14,12.46"></polygon>
+      </svg>
+      {filterButtonText()}
+    </button>
+
+    <!-- Filter Overlay -->
+    {#if filterOpen}
+      <div class="filter-overlay">
+        <div class="filter-panel" role="dialog" aria-modal="true" aria-labelledby="filter-title">
+          <!-- Header Section -->
+          <div class="filter-header">
+            <h3 class="filter-title" id="filter-title">Filter Fieldnotes</h3>
+            <p class="filter-subtitle">Choose collections and topics to narrow your view</p>
+            
+            <button 
+              class="close-button" 
+              onclick={() => filterOpen = false}
+              aria-label="Close filter"
+            >
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+              </svg>
+            </button>
+          </div>
+
+          <!-- Filter Content -->
+          <div class="filter-content">
+            <!-- Collections Section -->
+            <div class="filter-section">
+              <h4 class="section-title">Collections</h4>
+              <div class="options-grid">
+                {#each COLLECTIONS as collection}
+                  <button
+                    class="option-button"
+                    class:selected={currentCollections.includes(collection)}
+                    onclick={() => toggleCollection(collection)}
+                    aria-pressed={currentCollections.includes(collection)}
+                  >
+                    <span class="option-indicator">
+                      {#if currentCollections.includes(collection)}
+                        <svg
+                          width="12"
+                          height="12"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="3"
+                        >
+                          <polyline points="20,6 9,17 4,12"></polyline>
+                        </svg>
+                      {/if}
+                    </span>
+                    <span class="option-text">{collection}</span>
+                  </button>
+                {/each}
+              </div>
+            </div>
+
+            <!-- Topics Section -->
+            <div class="filter-section">
+              <h4 class="section-title">Topics</h4>
+              <div class="options-grid">
+                {#each TOPICS as topic}
+                  <button
+                    class="option-button"
+                    class:selected={currentTopics.includes(topic)}
+                    onclick={() => toggleTopic(topic)}
+                    aria-pressed={currentTopics.includes(topic)}
+                  >
+                    <span class="option-indicator">
+                      {#if currentTopics.includes(topic)}
+                        <svg
+                          width="12"
+                          height="12"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="3"
+                        >
+                          <polyline points="20,6 9,17 4,12"></polyline>
+                        </svg>
+                      {/if}
+                    </span>
+                    <span class="option-text">{topic}</span>
+                  </button>
+                {/each}
+              </div>
+            </div>
+
+            <!-- Clear All Section -->
+            {#if currentCollections.length > 0 || currentTopics.length > 0}
+              <div class="clear-section">
+                <button class="clear-all-button" onclick={clearAll}>
+                  Clear all filters
+                </button>
+              </div>
+            {/if}
+          </div>
+        </div>
+      </div>
+    {/if}
+  </div>
 </div>
 
 <style>
-  .filter-bar {
+  .header-with-filter {
     display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-    padding: 1.5rem;
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 0.5rem;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 3rem;
+    gap: 2rem;
+  }
+
+  h2 {
+    margin: 0;
+    flex: 1;
+  }
+
+  .filter-button-container {
+    position: relative;
+    flex-shrink: 0;
+    align-self: flex-start;
+  }
+
+  .filter-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+    color: var(--color-tan);
+    font-size: 0.875rem;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 200ms ease-out;
+  }
+
+  .filter-button:hover {
+    border-color: var(--color-yellow);
+    color: var(--color-yellow);
+  }
+
+  .filter-button.active {
+    border-color: var(--color-scarlet);
+    color: var(--color-scarlet);
+    background: rgba(255, 48, 3, 0.1);
+  }
+
+  .filter-button.active:hover {
+    border-color: var(--color-yellow);
+    color: var(--color-yellow);
+    background: rgba(250, 215, 20, 0.1);
+  }
+
+  .filter-icon {
+    flex-shrink: 0;
+  }
+
+  .filter-overlay {
+    position: absolute;
+    top: -1.5rem;
+    right: -1.5rem;
+    z-index: 1000;
+  }
+
+  .word {
+    position: relative;
+    padding: 0;
+    background: none;
+    border: none;
+    color: inherit;
+    cursor: pointer;
+    transition: color 200ms ease-out;
+  }
+
+  .word::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background-color: var(--color-scarlet);
+    opacity: 0;
+    transition: opacity 200ms ease-out;
+  }
+
+  .word:hover::after,
+  .word.active::after {
+    opacity: 1;
+  }
+
+  /* Filter Panel */
+  .filter-panel {
+    background: #000000;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+    min-width: 500px;
+    max-width: 600px;
+    animation: slideIn 200ms ease-out;
+  }
+
+  @keyframes slideIn {
+    from {
+      opacity: 0;
+      transform: translateY(-8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Header Section */
+  .filter-header {
+    position: relative;
+    padding: 1.5rem 2rem 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .filter-title {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--color-yellow);
+    letter-spacing: -0.025em;
+  }
+
+  .filter-subtitle {
+    margin: 0;
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.4;
+  }
+
+  .close-button {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 6px;
+    color: rgba(255, 255, 255, 0.7);
+    cursor: pointer;
+    transition: all 200ms ease-out;
+  }
+
+  .close-button:hover {
+    border-color: var(--color-scarlet);
+    color: var(--color-scarlet);
+    background: rgba(255, 48, 3, 0.1);
+  }
+
+  /* Filter Content */
+  .filter-content {
+    padding: 1.5rem 2rem 2rem;
+  }
+
+  .filter-section {
     margin-bottom: 2rem;
   }
-  
-  .filter-section {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
+
+  .filter-section:last-child {
+    margin-bottom: 0;
   }
-  
-  .filter-label {
-    font-size: var(--font-size-small);
-    font-weight: var(--font-weight-bold);
-    color: var(--color-yellow);
+
+  .section-title {
+    margin: 0 0 1rem 0;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--color-tan);
     text-transform: uppercase;
     letter-spacing: 0.05em;
   }
-  
-  .filter-group {
+
+  /* Options Grid */
+  .options-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem;
+  }
+
+  .option-button {
     display: flex;
-    gap: 0.5rem;
-    flex-wrap: wrap;
-  }
-  
-  .filter-toggle {
-    padding: 0.5rem 1rem;
-    background: transparent;
-    border: 2px solid var(--color-tan);
-    border-radius: 0.25rem;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
     color: var(--color-tan);
-    font-size: var(--font-size-small);
-    font-weight: var(--font-weight-medium);
+    font-size: 0.875rem;
+    font-family: inherit;
+    text-align: left;
     cursor: pointer;
-    transition: all var(--transition-duration) ease-out;
+    transition: all 200ms ease-out;
+    min-height: 44px;
   }
-  
-  .filter-toggle:hover {
+
+  .option-button:hover {
     border-color: var(--color-yellow);
+    background: rgba(250, 215, 20, 0.05);
     color: var(--color-yellow);
   }
-  
-  .filter-toggle.active {
+
+  .option-button.selected {
+    border-color: var(--color-yellow);
+    background: rgba(250, 215, 20, 0.1);
+    color: var(--color-yellow);
+  }
+
+  .option-button.selected:hover {
+    border-color: var(--color-scarlet);
+    background: rgba(255, 48, 3, 0.1);
+    color: var(--color-scarlet);
+  }
+
+  .option-indicator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 3px;
+    flex-shrink: 0;
+    transition: all 200ms ease-out;
+  }
+
+  .option-button:hover .option-indicator {
+    border-color: var(--color-yellow);
+  }
+
+  .option-button.selected .option-indicator {
+    border-color: var(--color-yellow);
     background: var(--color-yellow);
-    border-color: var(--color-yellow);
-    color: var(--color-green);
+    color: #000000;
   }
-  
-  .filter-toggle:focus {
-    outline: 2px solid var(--color-yellow);
-    outline-offset: 2px;
-  }
-  
-  .format-select {
-    padding: 0.5rem;
-    background: var(--color-green);
-    border: 2px solid var(--color-tan);
-    border-radius: 0.25rem;
-    color: var(--color-tan);
-    font-size: var(--font-size-small);
-    cursor: pointer;
-    max-width: 200px;
-  }
-  
-  .format-select:hover {
-    border-color: var(--color-yellow);
-  }
-  
-  .format-select:focus {
-    outline: 2px solid var(--color-yellow);
-    outline-offset: 2px;
-    border-color: var(--color-yellow);
-  }
-  
-  .clear-filters {
-    padding: 0.75rem 1.5rem;
+
+  .option-button.selected:hover .option-indicator {
+    border-color: var(--color-scarlet);
     background: var(--color-scarlet);
-    border: none;
-    border-radius: 0.25rem;
-    color: var(--color-cream);
-    font-size: var(--font-size-small);
-    font-weight: var(--font-weight-bold);
+    color: white;
+  }
+
+  .option-text {
+    flex: 1;
+    font-weight: 500;
+  }
+
+  /* Clear Section */
+  .clear-section {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .clear-all-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 6px;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.875rem;
+    font-family: inherit;
     cursor: pointer;
-    align-self: flex-start;
-    transition: all var(--transition-duration) ease-out;
+    transition: all 200ms ease-out;
   }
-  
-  .clear-filters:hover {
-    background: var(--color-yellow);
-    color: var(--color-green);
-    transform: translateY(-1px);
+
+  .clear-all-button:hover {
+    border-color: var(--color-scarlet);
+    color: var(--color-scarlet);
+    background: rgba(255, 48, 3, 0.1);
   }
-  
-  .clear-filters:focus {
-    outline: 2px solid var(--color-yellow);
-    outline-offset: 2px;
-  }
-  
-  /* Mobile responsiveness */
-  @media (min-width: 768px) {
-    .filter-bar {
-      flex-direction: row;
-      align-items: flex-end;
-      gap: 2rem;
+
+  /* Mobile: Stack vertically, show filter button */
+  @media (max-width: 767px) {
+    .header-with-filter {
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .filter-overlay {
+      /* Full-screen modal on mobile */
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 1000;
+      padding: 1rem;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(4px);
     }
     
-    .filter-section {
+    .filter-panel {
+      width: 100%;
+      height: 100%;
+      max-width: none;
+      min-width: 0;
+      border-radius: 0;
+      border: none;
+      box-shadow: none;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .filter-header {
+      padding: 2rem 1.5rem 1.5rem;
+      flex-shrink: 0;
+    }
+
+    .filter-content {
       flex: 1;
+      padding: 0 1.5rem 2rem;
+      overflow-y: auto;
     }
-    
-    .clear-filters {
-      align-self: flex-end;
-      margin-bottom: 0.25rem; /* Align with filter buttons */
+
+    .options-grid {
+      grid-template-columns: 1fr;
+      gap: 1rem;
     }
-  }
-  
-  /* Reduced motion support */
-  @media (prefers-reduced-motion: reduce) {
-    .filter-toggle,
-    .clear-filters {
-      transition: none;
+
+    .option-button {
+      padding: 1rem;
+      min-height: 56px;
+      font-size: 1rem;
+    }
+
+    .close-button {
+      top: 2rem;
+      right: 1.5rem;
+      width: 40px;
+      height: 40px;
     }
   }
 </style>
