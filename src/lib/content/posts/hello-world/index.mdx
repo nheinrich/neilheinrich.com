@@ -1,0 +1,47 @@
+---
+title: Hello World
+summary: The first post on this blog, testing MDX with interactive components
+date: 2024-01-01
+context: building
+collections: []
+topics: [Dev]
+format: Experiment
+pinned: true
+status: active
+---
+
+import Counter from '@components/Counter.svelte'
+
+# Hello World
+
+This is the first post on this mysterious blog. It's built with **Astro**, **Svelte 5**, and **MDX**.
+
+## Why This Blog?
+
+A space to share learnings, experiments, and ideas that have historically stayed private. This blog represents a step toward building confidence in sharing publicly.
+
+## Interactive Demo
+
+Here's a Svelte component embedded directly in this MDX post:
+
+<Counter client:visible />
+
+## Code Example
+
+Here's how you might write a simple function:
+
+```typescript
+function greet(name: string): string {
+  return `Hello, ${name}!`
+}
+```
+
+## What's Next?
+
+- More posts about AI, teams, and creative experiments
+- Interactive visualizations and generative art
+- Learnings from building products and leading teams
+
+---
+
+_This post uses MDX to combine Markdown with interactive Svelte components._

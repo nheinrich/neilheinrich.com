@@ -1,0 +1,47 @@
+---
+title: Drowning in Architectural Decisions
+summary: When the perfect tech stack becomes the enemy of shipping
+date: 2024-02-15
+context: building
+collections: []
+topics: [Dev]
+format: Essay
+pinned: false
+status: active
+---
+
+# Drowning in Architectural Decisions
+
+We have more options than ever for building software. This is both a blessing and a curse.
+
+## The Paralysis of Choice
+
+- Next.js or Remix or SvelteKit?
+- Postgres or Mongo or DynamoDB?
+- Vercel or Railway or self-host?
+- REST or GraphQL or tRPC?
+
+Each decision spawns ten more. Each comparison article contradicts the last.
+
+## The Cost of Perfection
+
+While we're optimizing for a scale we don't have, solving problems we don't face, our competitors are shipping.
+
+## The Way Forward
+
+### Start with Constraints
+- What do you already know?
+- What does your team know?
+- What can you afford?
+
+### Optimize for Change
+The only wrong decision is one you can't change. Build abstractions that let you swap parts later.
+
+### Ship to Learn
+Your users don't care about your tech stack. They care about their problems being solved.
+
+## A Personal Example
+
+I spent two weeks evaluating database options for a project that ended up needing just SQLite. The perfect architecture for the product we didn't build yet.
+
+*The best architecture is the one that lets you ship and iterate.*

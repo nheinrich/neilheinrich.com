@@ -1,0 +1,41 @@
+---
+title: Mabel - Backend Architecture
+summary: Building a scalable, privacy-first backend for an AI companion
+date: 2024-03-05
+context: building
+collections: [Mabel]
+topics: [Dev, AI]
+format: Essay
+pinned: false
+status: active
+---
+
+# Mabel - Backend Architecture
+
+Building the backend for an AI companion presents unique challenges. How do you balance personalization with privacy? Scale with intimacy?
+
+## Core Requirements
+
+- **Privacy First**: End-to-end encryption for personal data
+- **Real-time Sync**: Seamless experience across devices
+- **Context Preservation**: Maintaining conversation state and history
+- **Scalable AI Integration**: Efficient LLM API management
+
+## Architecture Decisions
+
+### Data Layer
+Using Supabase for its real-time capabilities and row-level security. This gives us PostgreSQL's reliability with modern developer experience.
+
+### AI Pipeline
+- Message queuing for LLM requests
+- Caching layer for common interactions
+- Fallback strategies for API failures
+
+### Security Model
+Every piece of user data is encrypted at rest. We can't read your conversations, and that's by design.
+
+## Lessons Learned
+
+Building for privacy first actually simplifies many architectural decisions. When you can't access user data, you're forced to build better abstractions.
+
+*Technical deep-dive coming in future posts.*
