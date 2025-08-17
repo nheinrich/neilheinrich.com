@@ -103,16 +103,6 @@
 
 <!-- Posts Section -->
 <section class="content">
-  <!-- Grid Header -->
-  <div class="grid header">
-    <div class="container">
-      <div class="format">Format</div>
-      <div class="title">Title</div>
-      <div class="topics">Topics</div>
-      <div class="year">Year</div>
-    </div>
-  </div>
-  
   <!-- Posts List -->
   <div class="list">
     {#each posts as post}
@@ -265,9 +255,6 @@
     white-space: nowrap;
   }
 
-  .header {
-    display: none;
-  }
 
   .list {
     display: flex;
@@ -361,18 +348,6 @@
     color: rgba(255, 255, 255, 0.5);
   }
 
-  /* Show header on larger screens */
-  @media (min-width: 768px) {
-    .header {
-      display: grid;
-      border-bottom: var(--separator-height) solid var(--color-black);
-      font-weight: var(--font-weight-bold);
-      color: var(--color-cream);
-      text-transform: uppercase;
-      font-size: var(--font-size-small);
-      letter-spacing: 0.05em;
-    }
-  }
 
   /* Mobile responsive */
   @media (max-width: 767px) {
