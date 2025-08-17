@@ -1,5 +1,6 @@
 <script>
   import { preloadData, pushState, goto } from '$app/navigation';
+  import FilterBar from '$lib/components/FilterBar.svelte';
   
   /** @type {import('./$types').PageProps} */
   let { data } = $props();
@@ -65,6 +66,9 @@
     <h1>Latest Posts</h1>
     <p>Building, learning, and creating — one post at a time.</p>
   </header>
+  
+  <!-- Filter controls -->
+  <FilterBar {filters} />
   
   {#if filters.collections.length > 0 || filters.topics.length > 0 || filters.format !== 'all'}
     <div class="filter-summary">
