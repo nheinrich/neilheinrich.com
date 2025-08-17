@@ -1,10 +1,58 @@
 <script>
+  import { preloadData, pushState, goto } from '$app/navigation';
+  
   /** @type {import('./$types').PageProps} */
   let { data } = $props();
   
   // Extract posts and filters from layout data using Svelte 5 runes
   let posts = $derived(data.posts);
   let filters = $derived(data.filters);
+  
+  /**
+   * Open article in slide-in using SvelteKit's shallow routing
+   */
+  async function openArticleInSlideIn(event, slug) {
+    // Check for modifier keys - if present, allow normal navigation
+    if (event.shiftKey || event.metaKey || event.ctrlKey) {
+      return; // Let the browser handle normal navigation
+    }
+    
+    // Check for small screens - on mobile, use normal navigation
+    if (window.innerWidth < 640) {
+      return; // Let the browser handle normal navigation
+    }
+    
+    // Prevent normal navigation
+    event.preventDefault();
+    
+    try {
+      // Preload the article data efficiently using SvelteKit
+      const result = await preloadData(`/content/${slug}`);
+      
+      if (result.type === 'loaded' && result.status === 200) {
+        // Success! Open in slide-in with shallow routing
+        // Only store serializable data, not the component
+        pushState(`/content/${slug}`, {
+          slideOpen: true,
+          articleSlug: slug,
+          articleData: {
+            post: {
+              slug: result.data.post.slug,
+              frontmatter: result.data.post.frontmatter
+              // Don't serialize the component - we'll load it in the slide-in
+            }
+          }
+        });
+      } else {
+        // Fallback to normal navigation if preload fails
+        goto(`/content/${slug}`);
+      }
+    } catch (error) {
+      // Fallback to normal navigation on any error
+      console.warn('Failed to preload article, falling back to navigation:', error);
+      goto(`/content/${slug}`);
+    }
+  }
 </script>
 
 <svelte:head>
@@ -40,7 +88,13 @@
       <article class="post-card">
         <header>
           <h2>
-            <a href="/content/{post.slug}">{post.frontmatter.title}</a>
+            <a 
+              href="/content/{post.slug}"
+              onclick={(e) => openArticleInSlideIn(e, post.slug)}
+              data-sveltekit-preload-data
+            >
+              {post.frontmatter.title}
+            </a>
           </h2>
           <time datetime={post.frontmatter.date}>
             {new Date(post.frontmatter.date).toLocaleDateString('en-US', {
