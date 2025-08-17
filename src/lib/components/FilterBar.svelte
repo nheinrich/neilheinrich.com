@@ -28,20 +28,21 @@
   
   /**
    * Update URL with new filter state using SvelteKit navigation
+   * Converts values to lowercase for cleaner URLs
    */
   function updateURL() {
     const params = new URLSearchParams();
     
     if (currentCollections.length > 0) {
-      params.set('collections', currentCollections.join(','));
+      params.set('collections', currentCollections.map(c => c.toLowerCase()).join(','));
     }
     
     if (currentTopics.length > 0) {
-      params.set('topics', currentTopics.join(','));
+      params.set('topics', currentTopics.map(t => t.toLowerCase()).join(','));
     }
     
     if (currentFormat !== 'all') {
-      params.set('format', currentFormat);
+      params.set('format', currentFormat.toLowerCase());
     }
     
     const queryString = params.toString();

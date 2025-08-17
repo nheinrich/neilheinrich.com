@@ -150,22 +150,42 @@ export function filterPosts(posts: Post[], filters: FilterState): Post[] {
 
 /**
  * Parse filter parameters from URL search params
+ * Handles lowercase URL parameters by converting back to proper case
  */
 export function parseFiltersFromURL(searchParams: URLSearchParams): FilterState {
   const collections = searchParams.getAll('collections')
     .flatMap(c => c.split(','))
     .map(c => c.trim())
+    .map(c => {
+      // Convert lowercase URL param back to proper case
+      const properCase = COLLECTIONS.find(collection => 
+        collection.toLowerCase() === c.toLowerCase()
+      );
+      return properCase || c;
+    })
     .filter((c): c is Collection => COLLECTIONS.includes(c as Collection));
     
   const topics = searchParams.getAll('topics')
     .flatMap(t => t.split(','))
     .map(t => t.trim())
+    .map(t => {
+      // Convert lowercase URL param back to proper case
+      const properCase = TOPICS.find(topic => 
+        topic.toLowerCase() === t.toLowerCase()
+      );
+      return properCase || t;
+    })
     .filter((t): t is Topic => TOPICS.includes(t as Topic));
     
   const formatParam = searchParams.get('format');
-  const format = (formatParam && FORMATS.includes(formatParam as Format)) 
-    ? formatParam as Format 
-    : 'all';
+  let format: Format | 'all' = 'all';
+  if (formatParam) {
+    // Convert lowercase URL param back to proper case
+    const properCase = FORMATS.find(f => 
+      f.toLowerCase() === formatParam.toLowerCase()
+    );
+    format = (properCase && FORMATS.includes(properCase)) ? properCase : 'all';
+  }
     
   return { collections, topics, format };
 }
