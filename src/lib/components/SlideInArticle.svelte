@@ -11,22 +11,29 @@
 	// Handle smooth enter/exit animations with proper closing animation
 	let isClosing = $state(false);
 	let showCloseButton = $state(false);
+	let showContent = $state(false);
 
 	$effect(() => {
 		if (shouldShow) {
 			// Small delay to ensure DOM is ready before animating in
 			isClosing = false;
 			showCloseButton = false;
+			showContent = false;
 			setTimeout(() => {
 				isOpen = true;
 				// Fade in close button after slide animation completes (300ms)
 				setTimeout(() => {
 					showCloseButton = true;
+					// Fade in content slightly after close button
+					setTimeout(() => {
+						showContent = true;
+					}, 100);
 				}, 300);
 			}, 10);
 		} else {
 			if (isOpen) {
-				// Hide close button immediately when closing starts
+				// Hide content and close button immediately when closing starts
+				showContent = false;
 				showCloseButton = false;
 				// Start closing animation
 				isClosing = true;
@@ -97,7 +104,15 @@
 
 {#if (shouldShow || isClosing) && articleData}
 	<!-- Close button - positioned independently at screen edge -->
-	<button class="close-btn" class:visible={showCloseButton} onclick={close} aria-label="Close article" type="button"> × </button>
+	<button
+		class="close-btn"
+		class:visible={showCloseButton}
+		onclick={close}
+		aria-label="Close article"
+		type="button"
+	>
+		×
+	</button>
 
 	<!-- Slide-in overlay with 120px margin design -->
 	<div
@@ -124,7 +139,7 @@
 		<!-- Main slide panel -->
 		<div class="slide-panel">
 			<!-- Article content -->
-			<article id="article-content">
+			<article id="article-content" class:visible={showContent}>
 				<header>
 					<h1 id="article-title">{articleData.post.frontmatter.title}</h1>
 					<div class="meta">
@@ -251,14 +266,14 @@
 		justify-content: center;
 		z-index: 1001;
 		opacity: 0;
-		transition: 
+		transition:
 			background-color var(--transition-duration) ease-out,
 			opacity 300ms ease-out;
 		/* Perfect centering adjustments */
 		line-height: 1;
 		text-align: center;
 	}
-	
+
 	.close-btn.visible {
 		opacity: 1;
 	}
@@ -269,6 +284,11 @@
 	}
 
 	.close-btn:focus {
+		outline: none;
+	}
+
+	/* Only show focus outline when navigating with keyboard */
+	.close-btn:focus-visible {
 		outline: 2px solid var(--color-yellow);
 		outline-offset: 2px;
 	}
@@ -278,6 +298,12 @@
 		padding: 2rem;
 		max-width: 800px;
 		margin: 0 auto;
+		opacity: 0;
+		transition: opacity 400ms ease-out;
+	}
+
+	article.visible {
+		opacity: 1;
 	}
 
 	article header {
@@ -334,7 +360,7 @@
 		font-size: var(--font-size-subheading);
 		font-weight: var(--font-weight-regular);
 	}
-	
+
 	.content :global(h1) {
 		font-size: var(--font-size-heading);
 	}
