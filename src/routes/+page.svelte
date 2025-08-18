@@ -1,13 +1,17 @@
-<script>
+<script lang="ts">
 	import { preloadData, pushState, goto } from '$app/navigation';
 	import FilterBar from '$lib/components/FilterBar.svelte';
 	import Icon from '$lib/components/Icon.svelte';
 	import Arrow from '$lib/components/Arrow.svelte';
 	import Header from '$lib/components/Header.svelte';
 	import { getIconForFormat } from '$lib/format';
+	import type { PageData } from './$types';
 
-	/** @type {import('./$types').PageProps} */
-	let { data } = $props();
+	interface Props {
+		data: PageData;
+	}
+
+	let { data }: Props = $props();
 
 	// Extract posts and filters from layout data using Svelte 5 runes
 	let posts = $derived(data.posts);
@@ -16,7 +20,7 @@
 	/**
 	 * Open article in slide-in using SvelteKit's shallow routing
 	 */
-	async function openArticleInSlideIn(event, slug) {
+	async function openArticleInSlideIn(event: MouseEvent, slug: string) {
 		// Check for modifier keys - if present, allow normal navigation
 		if (event.shiftKey || event.metaKey || event.ctrlKey) {
 			return; // Let the browser handle normal navigation
@@ -43,8 +47,8 @@
 					articleData: {
 						post: {
 							slug: result.data.post.slug,
-							frontmatter: result.data.post.frontmatter
-							// Don't serialize the component - we'll load it in the slide-in
+							frontmatter: result.data.post.frontmatter,
+							content: null // Component will be loaded dynamically in the slide-in
 						}
 					}
 				});

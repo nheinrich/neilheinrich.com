@@ -1,14 +1,17 @@
-<script>
+<script lang="ts">
   import { goto } from '$app/navigation';
-  import { COLLECTIONS, TOPICS } from '$lib/content.ts';
+  import { COLLECTIONS, TOPICS, type FilterState, type Collection, type Topic, type Format } from '$lib/content';
   
-  /** @type {import('$lib/content.ts').FilterState} */
-  let { filters = { collections: [], topics: [], format: 'all' } } = $props();
+  interface Props {
+    filters: FilterState;
+  }
+  
+  let { filters = { collections: [], topics: [], format: 'all' } }: Props = $props();
   
   // Local state synced with URL
-  let currentFormat = $state(filters.format);
-  let currentCollections = $state([...filters.collections]);
-  let currentTopics = $state([...filters.topics]);
+  let currentFormat = $state<Format | 'all'>(filters.format);
+  let currentCollections = $state<Collection[]>([...filters.collections]);
+  let currentTopics = $state<Topic[]>([...filters.topics]);
   
   // Filter panel state
   let filterOpen = $state(false);
@@ -50,12 +53,12 @@
     goto(newUrl, { replaceState: true });
   }
   
-  function handleFormatChange(format) {
+  function handleFormatChange(format: Format | 'all') {
     currentFormat = format;
     updateURL();
   }
   
-  function toggleCollection(collection) {
+  function toggleCollection(collection: Collection) {
     if (currentCollections.includes(collection)) {
       currentCollections = currentCollections.filter(c => c !== collection);
     } else {
@@ -64,7 +67,7 @@
     updateURL();
   }
   
-  function toggleTopic(topic) {
+  function toggleTopic(topic: Topic) {
     if (currentTopics.includes(topic)) {
       currentTopics = currentTopics.filter(t => t !== topic);
     } else {
@@ -81,14 +84,14 @@
   }
   
   // Handle click outside to close overlay
-  function handleClickOutside(event) {
-    if (filterOpen && !event.target.closest('.filter-button-container')) {
+  function handleClickOutside(event: MouseEvent) {
+    if (filterOpen && !(event.target as Element)?.closest('.filter-button-container')) {
       filterOpen = false;
     }
   }
   
   // Handle ESC key to close overlay
-  function handleEscKey(event) {
+  function handleEscKey(event: KeyboardEvent) {
     if (event.key === 'Escape' && filterOpen) {
       filterOpen = false;
     }

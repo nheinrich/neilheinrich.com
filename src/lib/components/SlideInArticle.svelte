@@ -1,6 +1,5 @@
-<script>
+<script lang="ts">
 	import { page } from '$app/stores';
-	import { goto } from '$app/navigation';
 
 	// Reactive slide-in state using Svelte 5 runes
 	let shouldShow = $derived(!!$page.state?.slideOpen);
@@ -47,7 +46,7 @@
 	});
 
 	// Dynamic component loading
-	let articleComponent = $state(null);
+	let articleComponent = $state<any>(null);
 
 	// Load the MDX component when article slug changes
 	$effect(() => {
@@ -70,14 +69,14 @@
 		history.back();
 	}
 
-	function handleBackdropClick(event) {
+	function handleBackdropClick(event: MouseEvent) {
 		// Only close if clicking the backdrop, not the content
 		if (event.target === event.currentTarget) {
 			close();
 		}
 	}
 
-	function handleKeydown(event) {
+	function handleKeydown(event: KeyboardEvent) {
 		if (event.key === 'Escape' && isOpen) {
 			close();
 		}
@@ -180,7 +179,8 @@
 				<div class="content">
 					<!-- Render the dynamically loaded MDX content -->
 					{#if articleComponent}
-						{@render articleComponent()}
+						{@const Component = articleComponent}
+						<Component />
 					{:else}
 						<p>Loading content...</p>
 					{/if}
