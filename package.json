@@ -13,7 +13,8 @@
 		"format": "prettier --write .",
 		"lint": "prettier --check . && eslint .",
 		"test:e2e": "playwright test",
-		"test": "npm run test:e2e"
+		"test": "npm run test:e2e",
+		"lighthouse": "lighthouse http://localhost:4173 --output=html --output-path=tests/results/lighthouse-report.html --chrome-flags='--headless'"
 	},
 	"devDependencies": {
 		"@eslint/compat": "^1.2.5",

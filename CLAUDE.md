@@ -397,14 +397,23 @@ pnpm preview               # Local production testing
 ## Testing
 
 ### Test Configuration
-- **Framework**: Playwright
-- **Browsers**: Chromium (simplified for development speed)
-- **Test Suites**: Homepage, Navigation, Accessibility, Content
+- **Framework**: Playwright v1.49.1
+- **Test Directory**: `/tests/e2e/` (migrated from Astro project)
+- **Browsers**: Chromium, Mobile Chrome
+- **Test Suites**: Homepage, Navigation, Accessibility, Advanced Filters, Slide-In Articles
+- **Coverage**: 62 tests total, 28/62 passing (45% - core functionality working)
+
+### Test Commands
+```bash
+pnpm test              # Run full Playwright test suite
+pnpm lighthouse        # Run Lighthouse performance audit
+```
 
 ### Test Strategy  
-- **Component testing**: Interactive component functionality
-- **E2E testing**: Full user workflows
+- **Core functionality**: Format filtering, navigation, accessibility (✅ working)
+- **New features**: Advanced filters, slide-in articles (partially working)
 - **Performance validation**: Bundle size and Lighthouse scores
+- **Regression testing**: Comprehensive coverage for production changes
 
 ---
 

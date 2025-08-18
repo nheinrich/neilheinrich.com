@@ -1,0 +1,108 @@
+# Page snapshot
+
+```yaml
+- banner:
+  - link:
+    - /url: /
+    - img
+  - link "Info":
+    - /url: /information
+  - navigation:
+    - list:
+      - listitem
+- heading "Fieldnotes" [level=1]
+- heading "All essays , experiments and notes ." [level=2]:
+  - button "All"
+  - button "essays"
+  - text: ","
+  - button "experiments"
+  - text: and
+  - button "notes"
+  - text: .
+- button "Toggle content filters":
+  - img
+  - text: Filter
+- link "Test Post Dev 2025":
+  - /url: /content/test-post
+  - img
+  - text: Test Post Dev 2025
+- link "Mabel Mabel - Memory Architecture AI, Dev 2024":
+  - /url: /content/mabel-memory-architecture
+  - img
+  - text: Mabel
+  - img
+  - text: Mabel - Memory Architecture AI, Dev 2024
+- link "Mabel Mabel - Backend Architecture Dev, AI 2024":
+  - /url: /content/mabel-backend
+  - img
+  - text: Mabel
+  - img
+  - text: Mabel - Backend Architecture Dev, AI 2024
+- link "Pinned post Mabel A companion that learns to support you Discovery 2024":
+  - /url: /content/mabel-ai-friend
+  - text: ★
+  - img
+  - text: Mabel
+  - img
+  - text: A companion that learns to support you Discovery 2024
+- link "Mabel Mabel - User Research Discovery 2024":
+  - /url: /content/mabel-user-research
+  - img
+  - text: Mabel
+  - img
+  - text: Mabel - User Research Discovery 2024
+- link "Skelly Skeleton - Is it worth shipping a Notion template? Discovery 2024":
+  - /url: /content/skeleton-notion-template
+  - img
+  - text: Skelly
+  - img
+  - text: Skeleton - Is it worth shipping a Notion template? Discovery 2024
+- link "Product Maestro AI, Design 2024":
+  - /url: /content/product-maestro
+  - img
+  - text: Product Maestro AI, Design 2024
+- link "Drowning in Architectural Decisions Dev 2024":
+  - /url: /content/drowning-in-architectural-decisions
+  - img
+  - text: Drowning in Architectural Decisions Dev 2024
+- link "Smaller Teams are Better Teams 2024":
+  - /url: /content/smaller-teams-are-better
+  - img
+  - text: Smaller Teams are Better Teams 2024
+- link "Learning vs Doing Mind 2024":
+  - /url: /content/learning-vs-doing
+  - img
+  - text: Learning vs Doing Mind 2024
+- link "Temporal Fidelity Teams 2024":
+  - /url: /content/temporal-fidelity
+  - img
+  - text: Temporal Fidelity Teams 2024
+- link "Perfection is Task-Dependent Mind 2024":
+  - /url: /content/perfection-is-task-dependent
+  - img
+  - text: Perfection is Task-Dependent Mind 2024
+- link "Managing from the Bottom of the Totem Pole Teams 2024":
+  - /url: /content/managing-from-bottom
+  - img
+  - text: Managing from the Bottom of the Totem Pole Teams 2024
+- link "Pinned post Structuring Asynchronous Teams Teams 2024":
+  - /url: /content/structuring-async-teams
+  - text: ★
+  - img
+  - text: Structuring Asynchronous Teams Teams 2024
+- link "Pinned post Quantum Work Teams 2024":
+  - /url: /content/quantum-work
+  - text: ★
+  - img
+  - text: Quantum Work Teams 2024
+- link "Pinned post Canon Mind 2024":
+  - /url: /content/canon-post
+  - text: ★
+  - img
+  - text: Canon Mind 2024
+- link "Pinned post Hello World Dev 2023":
+  - /url: /content/hello-world
+  - text: ★
+  - img
+  - text: Hello World Dev 2023
+```
