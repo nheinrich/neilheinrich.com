@@ -2,6 +2,7 @@
 	import { preloadData, pushState, goto } from '$app/navigation';
 	import FilterBar from '$lib/components/FilterBar.svelte';
 	import Icon from '$lib/components/Icon.svelte';
+	import NewIcon from '$lib/components/NewIcon.svelte';
 	import Arrow from '$lib/components/Arrow.svelte';
 	import Header from '$lib/components/Header.svelte';
 	import { getIconForFormat } from '$lib/format';
@@ -117,7 +118,14 @@
 					{/if}
 
 					<span class="format">
-						<Icon type={getIconForFormat(post.frontmatter.format)} />
+						<!-- <Icon type={getIconForFormat(post.frontmatter.format)} /> -->
+						<NewIcon
+							name={getIconForFormat(post.frontmatter.format)}
+							size="xl"
+							variant="squircle"
+							filled
+							class="bg-black text-tan"
+						/>
 					</span>
 
 					<div class="title">
@@ -206,9 +214,9 @@
 	.grid {
 		display: grid;
 		grid-template-columns:
-			2rem /* format */
+			2.2rem /* format */
 			1fr /* title */
-			12rem /* topics */
+			8rem /* topics */
 			8rem /* year */;
 		gap: 1rem;
 		padding-block: 0.9rem 1rem;
@@ -230,7 +238,7 @@
 		position: relative;
 		text-decoration: none;
 		border-top: var(--separator-height) solid var(--color-black);
-		transition: background-color 200ms ease-out;
+		transition: background-color var(--transition-duration) ease-out;
 	}
 
 	.link:last-child {
@@ -260,21 +268,19 @@
 
 	.title {
 		color: var(--color-tan);
-		transition: color 200ms ease-out;
+		transition: color var(--transition-duration) ease-out;
 	}
 
 	.format {
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		width: 2rem;
-		height: 2rem;
+		width: 2.25rem;
+		height: 2.25rem;
 	}
 
-	.format :global(svg) {
-		width: 2rem;
-		height: 2rem;
-		transform: translateY(0.25rem);
+	.format :global(.squircle) {
+		transform: translateY(0.05rem);
 	}
 
 	.collection {
@@ -294,6 +300,14 @@
 		transition: fill 400ms ease-out;
 	}
 
+	/* .link:hover :global(.squircle.filled::before) {
+		background: var(--color-blue);
+	} */
+
+	.link:hover :global(.squircle.filled svg path) {
+		fill: var(--color-cream);
+	}
+
 	.link:hover .collection :global(path) {
 		fill: var(--color-blue);
 	}
@@ -303,8 +317,9 @@
 	}
 
 	.year {
+		color: var(--color-cream);
 		text-align: right;
-		font-weight: var(--font-weight-bold);
+		/* font-weight: var(--font-weight-bold); */
 	}
 
 	.empty {
