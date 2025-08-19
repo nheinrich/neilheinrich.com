@@ -21,7 +21,7 @@
 
 <style>
 	header {
-		margin-bottom: 4rem;
+		margin-bottom: 4.5rem;
 	}
 
 	.container {
@@ -32,12 +32,12 @@
 
 	.logo-link :global(.logo) {
 		width: 14rem;
-		transform: translateX(-2.55rem);
+		transform: scaleY(0.96) translateX(-2.55rem);
 	}
 
 	.info {
 		position: relative;
-		top: 6.75rem;
+		top: 6rem;
 		left: -4.25rem;
 		z-index: 10;
 	}
