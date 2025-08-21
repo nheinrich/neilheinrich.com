@@ -292,17 +292,17 @@
 	.filter-button-container {
 		position: relative;
 		flex-shrink: 0;
-		align-self: flex-start;
+		align-self: flex-end;
 	}
 
 	.filter-button {
 		display: inline-flex;
-		width: 2.75rem;
-		height: 2.75rem;
+		width: 2.4rem;
+		height: 2.4rem;
 		align-items: center;
 		justify-content: center;
 		gap: 0.5rem;
-		padding: 0.25rem 0.6rem;
+		padding: 0.25rem 0.4rem;
 		background: transparent;
 		border: 0.185rem solid var(--color-lilac);
 		border-radius: 50%;
