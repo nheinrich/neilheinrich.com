@@ -297,11 +297,10 @@
 
 	.filter-button {
 		display: inline-flex;
-		width: 2.4rem;
-		height: 2.4rem;
+		width: 2.5rem;
+		height: 2.5rem;
 		align-items: center;
 		justify-content: center;
-		gap: 0.5rem;
 		padding: 0.25rem 0.4rem;
 		background: transparent;
 		border: 0.185rem solid var(--color-lilac);
@@ -309,6 +308,7 @@
 		color: var(--color-tan);
 		cursor: pointer;
 		transition: all 100ms ease-out;
+		transform: translateY(0.1rem);
 	}
 
 	.filter-button :global(svg) {
