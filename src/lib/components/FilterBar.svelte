@@ -297,8 +297,8 @@
 
 	.filter-button {
 		display: inline-flex;
-		width: 2.5rem;
-		height: 2.5rem;
+		width: 2.35rem;
+		height: 2.35rem;
 		align-items: center;
 		justify-content: center;
 		padding: 0.25rem 0.4rem;
