@@ -307,7 +307,7 @@
 		border-radius: 50%;
 		color: var(--color-tan);
 		cursor: pointer;
-		transition: all 100ms ease-out;
+		transition: all var(--transition-duration-x2) ease-out;
 		transform: translateY(0.1rem);
 	}
 
@@ -318,7 +318,7 @@
 	.filter-button:hover {
 		border-color: var(--color-scarlet);
 		color: var(--color-yellow);
-		transform: scale(1.015);
+		transform: translateY(0.1rem) scale(1.025);
 	}
 
 	.filter-button.active {
