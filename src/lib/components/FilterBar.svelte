@@ -364,12 +364,14 @@
 		background-color: var(--color-scarlet);
 		border-radius: 1rem;
 		opacity: 0;
-		transition: opacity 200ms ease-out;
+		transform: translateY(3px);
+		transition: opacity 200ms ease-out, transform 200ms ease-out;
 	}
 
 	.word:hover::after,
 	.word.active::after {
 		opacity: 1;
+		transform: translateY(0);
 	}
 
 	/* Filter Panel */
