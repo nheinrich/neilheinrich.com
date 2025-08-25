@@ -5,6 +5,7 @@
 	import NewIcon from '$lib/components/NewIcon.svelte';
 	import Arrow from '$lib/components/Arrow.svelte';
 	import Header from '$lib/components/Header.svelte';
+	import Footer from '$lib/components/Footer.svelte';
 	import { getIconForFormat } from '$lib/format';
 	import type { PageData } from './$types';
 
@@ -156,6 +157,9 @@
 		</div>
 	{/if}
 </section>
+
+<!-- Footer -->
+<Footer />
 
 <style>
 	/* Section Layout */
