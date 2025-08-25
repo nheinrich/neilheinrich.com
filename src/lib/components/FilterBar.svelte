@@ -364,8 +364,10 @@
 		background-color: var(--color-scarlet);
 		border-radius: 1rem;
 		opacity: 0;
-		transform: translateY(3px);
-		transition: opacity 200ms ease-out, transform 200ms ease-out;
+		transform: translateY(2px);
+		transition:
+			opacity 200ms ease-out,
+			transform 200ms ease-out;
 	}
 
 	.word:hover::after,
