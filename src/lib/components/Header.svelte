@@ -21,13 +21,13 @@
 
 <style>
 	header {
-		margin-bottom: 4.5rem;
+		margin-bottom: 3rem;
 	}
 
 	.container {
 		display: flex;
 		gap: 0.5rem;
-		padding-top: 2rem;
+		padding-top: 3rem;
 	}
 
 	.logo-link :global(.logo) {
