@@ -8,17 +8,32 @@
 	<div class="container">
 		<nav class="footer-grid">
 			<section class="footer-section">
-				<h2>ME</h2>
+				<h3>About</h3>
 				<ul>
-					<li><a href="/information">INFORMATION</a></li>
+					<li><a href="/information">Information</a></li>
 					<li class="social-links">
-						<a href="https://twitter.com/" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)">
+						<a
+							href="https://twitter.com/"
+							target="_blank"
+							rel="noopener noreferrer"
+							aria-label="X (Twitter)"
+						>
 							<NewIcon name="twitter" size="sm" />
 						</a>
-						<a href="https://instagram.com/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+						<a
+							href="https://instagram.com/"
+							target="_blank"
+							rel="noopener noreferrer"
+							aria-label="Instagram"
+						>
 							<NewIcon name="instagram" size="sm" />
 						</a>
-						<a href="https://linkedin.com/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+						<a
+							href="https://linkedin.com/"
+							target="_blank"
+							rel="noopener noreferrer"
+							aria-label="LinkedIn"
+						>
 							<NewIcon name="linkedin" size="sm" />
 						</a>
 					</li>
@@ -26,25 +41,33 @@
 			</section>
 
 			<section class="footer-section">
-				<h2>BUILDING</h2>
+				<h3>Building</h3>
 				<ul>
-					<li><a href="https://synthesis.tech" target="_blank" rel="noopener noreferrer">SYNTHESIS</a></li>
-					<li><a href="https://skelly.so" target="_blank" rel="noopener noreferrer">SKELLY</a></li>
-					<li><a href="https://seekingnotseeking.com" target="_blank" rel="noopener noreferrer">SEEKING</a></li>
+					<li>
+						<a href="https://synthesis.tech" target="_blank" rel="noopener noreferrer">Synthesis</a>
+					</li>
+					<li><a href="https://skelly.so" target="_blank" rel="noopener noreferrer">Skelly</a></li>
+					<li>
+						<a href="https://seekingnotseeking.com" target="_blank" rel="noopener noreferrer"
+							>Seeking</a
+						>
+					</li>
 				</ul>
 			</section>
 
 			<section class="footer-section">
-				<h2>COLLECTIONS</h2>
+				<h3>Collections</h3>
 				<ul>
 					{#each COLLECTIONS as collection}
-						<li><a href="/?collections={collection.toLowerCase()}">{collection.toUpperCase()}</a></li>
+						<li>
+							<a href="/?collections={collection.toLowerCase()}">{collection.toUpperCase()}</a>
+						</li>
 					{/each}
 				</ul>
 			</section>
 
 			<section class="footer-section">
-				<h2>TOPICS</h2>
+				<h3>Topics</h3>
 				<ul>
 					{#each TOPICS as topic}
 						<li><a href="/?topics={topic.toLowerCase()}">{topic.toUpperCase()}</a></li>
@@ -54,7 +77,7 @@
 		</nav>
 
 		<div class="footer-meta">
-			<p class="copyright">© 2025 NEIL HEINRICH</p>
+			<p class="copyright">©2025</p>
 		</div>
 	</div>
 
@@ -90,13 +113,12 @@
 		margin-bottom: 6rem;
 	}
 
-	.footer-section h2 {
-		margin-bottom: 2rem;
-		font-size: 1.1rem;
-		font-weight: var(--font-weight-bold);
+	.footer-section h3 {
+		margin-bottom: 1rem;
+		font-size: 1.5rem;
+		font-weight: var(--font-weight-normal);
 		color: var(--color-tan);
-		text-transform: uppercase;
-		letter-spacing: 0.08em;
+		/* letter-spacing: 0.08em; */
 	}
 
 	.footer-section ul {
@@ -106,7 +128,8 @@
 	}
 
 	.footer-section li {
-		line-height: 2.8;
+		/* line-height: 2.8; */
+		line-height: 1em;
 	}
 
 	.footer-section a {
@@ -221,7 +244,7 @@
 		}
 
 		.footer-section h2 {
-			font-size: 0.95rem;
+			font-size: var(--font-size-copy);
 			margin-bottom: 2.5rem;
 		}
 
