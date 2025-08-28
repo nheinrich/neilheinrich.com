@@ -44,13 +44,19 @@
 				<h3>Building</h3>
 				<ul>
 					<li>
-						<a href="https://synthesis.tech" target="_blank" rel="noopener noreferrer">Synthesis</a>
+						<a href="https://synthesis.tech" target="_blank" rel="noopener noreferrer">
+							Synthesis <NewIcon name="external" size="xs" />
+						</a>
 					</li>
-					<li><a href="https://skelly.so" target="_blank" rel="noopener noreferrer">Skelly</a></li>
 					<li>
-						<a href="https://seekingnotseeking.com" target="_blank" rel="noopener noreferrer"
-							>Seeking</a
-						>
+						<a href="https://skelly.so" target="_blank" rel="noopener noreferrer">
+							Skelly <NewIcon name="external" size="xs" />
+						</a>
+					</li>
+					<li>
+						<a href="https://seekingnotseeking.com" target="_blank" rel="noopener noreferrer">
+							Seeking <NewIcon name="external" size="xs" />
+						</a>
 					</li>
 				</ul>
 			</section>
