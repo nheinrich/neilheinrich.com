@@ -6,12 +6,12 @@
 
 <footer>
 	<div class="container">
-		<nav class="footer-grid">
-			<section class="footer-section">
+		<nav>
+			<section>
 				<h3>About</h3>
 				<ul>
 					<li><a href="/information">Information</a></li>
-					<li class="social-links">
+					<li class="socials">
 						<a
 							href="https://twitter.com/"
 							target="_blank"
@@ -40,7 +40,7 @@
 				</ul>
 			</section>
 
-			<section class="footer-section">
+			<section>
 				<h3>Building</h3>
 				<ul>
 					<li>
@@ -55,7 +55,7 @@
 				</ul>
 			</section>
 
-			<section class="footer-section">
+			<section>
 				<h3>Collections</h3>
 				<ul>
 					{#each COLLECTIONS as collection}
@@ -66,7 +66,7 @@
 				</ul>
 			</section>
 
-			<section class="footer-section">
+			<section>
 				<h3>Topics</h3>
 				<ul>
 					{#each TOPICS as topic}
@@ -76,13 +76,13 @@
 			</section>
 		</nav>
 
-		<div class="footer-meta">
+		<div class="meta">
 			<p class="copyright">©2025</p>
 		</div>
 	</div>
 
 	<!-- Large logo positioned at bottom -->
-	<div class="footer-logo">
+	<div class="logo">
 		<Logo />
 	</div>
 </footer>
@@ -106,33 +106,33 @@
 		padding: var(--padding-container);
 	}
 
-	.footer-grid {
+	nav {
 		display: grid;
 		grid-template-columns: 1fr;
 		gap: 3rem;
 		margin-bottom: 6rem;
 	}
 
-	.footer-section h3 {
-		margin-bottom: 1rem;
+	h3 {
+		margin-bottom: 1.5rem;
 		font-size: 1.5rem;
 		font-weight: var(--font-weight-normal);
 		color: var(--color-tan);
 		/* letter-spacing: 0.08em; */
 	}
 
-	.footer-section ul {
+	ul {
 		list-style: none;
 		padding: 0;
 		margin: 0;
 	}
 
-	.footer-section li {
-		/* line-height: 2.8; */
-		line-height: 1em;
+	li {
+		font-size: var(--font-size-small);
+		line-height: 1.75em;
 	}
 
-	.footer-section a {
+	a {
 		color: var(--color-tan);
 		text-decoration: none;
 		text-transform: uppercase;
@@ -143,19 +143,18 @@
 		transition: all var(--transition-duration) ease-out;
 	}
 
-	.footer-section a:hover {
+	a:hover {
 		color: var(--color-yellow);
 		opacity: 1;
 	}
 
-	/* Social icons */
-	.social-links {
+	.socials {
 		display: flex;
-		gap: 1.5rem;
+		gap: 1rem;
 		margin-top: 1rem;
 	}
 
-	.social-links a {
+	.socials a {
 		display: inline-flex;
 		align-items: center;
 		justify-content: center;
@@ -163,11 +162,11 @@
 		transition: all var(--transition-duration) ease-out;
 	}
 
-	.social-links a:hover {
+	.socials a:hover {
 		transform: scale(1.15);
 	}
 
-	.footer-meta {
+	.meta {
 		padding-top: 3rem;
 		border-top: 1px solid rgba(214, 210, 189, 0.08);
 	}
@@ -182,7 +181,7 @@
 	}
 
 	/* Large logo treatment */
-	.footer-logo {
+	.logo {
 		position: absolute;
 		bottom: -48%;
 		left: 1.5rem;
@@ -192,32 +191,32 @@
 	}
 
 	@media (min-width: 576px) {
-		.footer-logo {
+		.logo {
 			left: 2.5rem;
 			max-width: 45rem;
 		}
 	}
 
 	@media (min-width: 992px) {
-		.footer-logo {
+		.logo {
 			left: 4rem;
 			max-width: 55rem;
 		}
 	}
 
-	.footer-logo :global(.logo) {
+	.logo :global(.logo) {
 		width: 100%;
 		height: auto;
 		opacity: 0.05;
 	}
 
-	.footer-logo :global(.logo path) {
+	.logo :global(.logo path) {
 		fill: var(--color-black);
 	}
 
 	/* Tablet and up */
 	@media (min-width: 768px) {
-		.footer-grid {
+		nav {
 			grid-template-columns: repeat(2, 1fr);
 		}
 
@@ -225,7 +224,7 @@
 			text-align: left;
 		}
 
-		.footer-logo {
+		.logo {
 			max-width: 35rem;
 		}
 	}
@@ -237,22 +236,21 @@
 			padding-bottom: 14rem;
 		}
 
-		.footer-grid {
+		nav {
 			grid-template-columns: repeat(4, 1fr);
 			column-gap: 4rem;
 			margin-bottom: 8rem;
 		}
 
-		.footer-section h2 {
+		h3 {
 			font-size: var(--font-size-copy);
-			margin-bottom: 2.5rem;
 		}
 
-		.footer-section a {
+		a {
 			font-size: 0.8rem;
 		}
 
-		.footer-logo {
+		.logo {
 			max-width: 65rem;
 			bottom: -45%;
 		}
@@ -260,7 +258,7 @@
 
 	/* Large screens */
 	@media (min-width: 1440px) {
-		.footer-logo {
+		.logo {
 			max-width: 75rem;
 			bottom: -42%;
 		}
