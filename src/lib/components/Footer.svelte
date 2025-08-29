@@ -98,7 +98,8 @@
 		position: relative;
 		padding-top: 12rem;
 		padding-bottom: 2rem;
-		/* background-color: var(--color-black); */
+		background-color: var(--color-green);
+		border-top: 4.5rem solid var(--color-black);
 		overflow: hidden;
 	}
 
