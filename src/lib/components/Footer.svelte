@@ -45,17 +45,17 @@
 				<ul>
 					<li>
 						<a href="https://synthesis.tech" target="_blank" rel="noopener noreferrer">
-							Synthesis <NewIcon name="external" size="xs" />
+							<span class="external-link">Synthesis <NewIcon name="external" size="xs" /></span>
 						</a>
 					</li>
 					<li>
 						<a href="https://skelly.so" target="_blank" rel="noopener noreferrer">
-							Skelly <NewIcon name="external" size="xs" />
+							<span class="external-link">Skelly <NewIcon name="external" size="xs" /></span>
 						</a>
 					</li>
 					<li>
 						<a href="https://seekingnotseeking.com" target="_blank" rel="noopener noreferrer">
-							Seeking <NewIcon name="external" size="xs" />
+							<span class="external-link">Seeking <NewIcon name="external" size="xs" /></span>
 						</a>
 					</li>
 				</ul>
@@ -66,7 +66,7 @@
 				<ul>
 					{#each COLLECTIONS as collection}
 						<li>
-							<a href="/?collections={collection.toLowerCase()}">{collection.toUpperCase()}</a>
+							<a href="/?collections={collection.toLowerCase()}">{collection}</a>
 						</li>
 					{/each}
 				</ul>
@@ -76,7 +76,7 @@
 				<h3>Topics</h3>
 				<ul>
 					{#each TOPICS as topic}
-						<li><a href="/?topics={topic.toLowerCase()}">{topic.toUpperCase()}</a></li>
+						<li><a href="/?topics={topic.toLowerCase()}">{topic}</a></li>
 					{/each}
 				</ul>
 			</section>
@@ -96,10 +96,10 @@
 <style>
 	footer {
 		position: relative;
-		padding-top: 8rem;
-		padding-bottom: 12rem;
-		background-color: var(--color-green);
-		/* No overflow: hidden to allow logo to extend beyond bounds */
+		padding-top: 12rem;
+		padding-bottom: 2rem;
+		/* background-color: var(--color-black); */
+		overflow: hidden;
 	}
 
 	.container {
@@ -119,12 +119,15 @@
 		margin-bottom: 6rem;
 	}
 
+	section {
+		padding-bottom: 0;
+	}
+
 	h3 {
-		margin-bottom: 1.5rem;
-		font-size: 1.5rem;
+		margin-bottom: 2rem;
+		font-size: var(--font-size-subheading);
 		font-weight: var(--font-weight-normal);
-		color: var(--color-tan);
-		/* letter-spacing: 0.08em; */
+		color: var(--color-yellow);
 	}
 
 	ul {
@@ -135,14 +138,14 @@
 
 	li {
 		font-size: var(--font-size-small);
-		line-height: 1.75em;
+		line-height: 2em;
 	}
 
 	a {
 		color: var(--color-tan);
 		text-decoration: none;
-		text-transform: uppercase;
-		font-size: 0.875rem;
+		/* text-transform: uppercase; */
+		font-size: 1.1rem;
 		font-weight: var(--font-weight-regular);
 		letter-spacing: 0.05em;
 		opacity: 0.85;
@@ -156,7 +159,7 @@
 
 	.socials {
 		display: flex;
-		gap: 1rem;
+		gap: 0.5rem;
 		margin-top: 1rem;
 	}
 
@@ -165,108 +168,79 @@
 		align-items: center;
 		justify-content: center;
 		opacity: 1;
+		transform: scale(1.35);
 		transition: all var(--transition-duration) ease-out;
 	}
 
 	.socials a:hover {
-		transform: scale(1.15);
+		transform: scale(2);
+	}
+
+	.external-link {
+		display: flex;
+		align-items: center;
+		gap: 0.25rem;
+	}
+
+	.external-link :global(.icon-container) {
+		width: 0.75rem;
+		height: 0.75rem;
+		opacity: 0.7;
 	}
 
 	.meta {
-		padding-top: 3rem;
-		border-top: 1px solid rgba(214, 210, 189, 0.08);
 	}
 
 	.copyright {
-		text-align: center;
 		font-size: 0.75rem;
 		color: var(--color-tan);
 		opacity: 0.6;
 		text-transform: uppercase;
 		letter-spacing: 0.08em;
+		padding-top: 1rem;
 	}
 
-	/* Large logo treatment */
 	.logo {
 		position: absolute;
-		bottom: -48%;
-		left: 1.5rem;
+		left: 3%;
+		bottom: -70%;
 		width: 100%;
-		max-width: 35rem;
+		max-width: 55rem;
 		pointer-events: none;
-	}
-
-	@media (min-width: 576px) {
-		.logo {
-			left: 2.5rem;
-			max-width: 45rem;
-		}
-	}
-
-	@media (min-width: 992px) {
-		.logo {
-			left: 4rem;
-			max-width: 55rem;
-		}
-	}
-
-	.logo :global(.logo) {
-		width: 100%;
+		opacity: 1;
 		height: auto;
-		opacity: 0.05;
 	}
+
+	/* .logo svg {
+		max-width: 55rem;
+	} */
 
 	.logo :global(.logo path) {
 		fill: var(--color-black);
+		/* opacity: 20%; */
 	}
 
-	/* Tablet and up */
+	@media (min-width: 576px) {
+	}
+
+	@media (min-width: 992px) {
+	}
+
 	@media (min-width: 768px) {
 		nav {
 			grid-template-columns: repeat(2, 1fr);
-		}
-
-		.copyright {
-			text-align: left;
-		}
-
-		.logo {
-			max-width: 35rem;
 		}
 	}
 
 	/* Desktop */
 	@media (min-width: 1024px) {
-		footer {
-			padding-top: 10rem;
-			padding-bottom: 14rem;
-		}
-
 		nav {
 			grid-template-columns: repeat(4, 1fr);
 			column-gap: 4rem;
-			margin-bottom: 8rem;
-		}
-
-		h3 {
-			font-size: var(--font-size-copy);
-		}
-
-		a {
-			font-size: 0.8rem;
-		}
-
-		.logo {
-			max-width: 65rem;
-			bottom: -45%;
 		}
 	}
 
 	/* Large screens */
 	@media (min-width: 1440px) {
-		.logo {
-			max-width: 75rem;
-			bottom: -42%;
-		}
 	}
 </style>
