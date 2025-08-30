@@ -10,7 +10,9 @@
 			<div class="brand">
 				<Logo />
 				<h3>Fieldnotes</h3>
-				<p class="tagline">A collection of artifacts from venturing into rabbit holes.</p>
+				<p class="tagline">
+					A collection of artifacts excavated from the depths venturing into rabbit holes.
+				</p>
 				<div class="social">
 					<a
 						href="https://twitter.com/"
@@ -44,12 +46,12 @@
 				<h4>Explore</h4>
 				<ul>
 					<li><a href="/information">Information</a></li>
-					<li><a href="/">All Posts</a></li>
+					<li><a href="mailto:yo@neilheinrich.com">Contact</a></li>
 				</ul>
 			</nav>
 
 			<nav>
-				<h4>Building</h4>
+				<h4>External</h4>
 				<ul>
 					<li>
 						<a href="https://synthesis.tech" target="_blank" rel="noopener noreferrer">
@@ -87,9 +89,10 @@
 				</ul>
 			</nav>
 		</div>
-
-		<div class="bottom">
-			<p class="copyright">© 2025 Neil Heinrich</p>
+	</div>
+	<div class="bottom">
+		<div class="container">
+			<p class="copyright">&copy;2025</p>
 		</div>
 	</div>
 </footer>
@@ -97,14 +100,13 @@
 <style>
 	footer {
 		background-color: var(--color-green);
-		padding: 6rem 0 2rem;
 	}
 
 	.content {
 		display: grid;
 		grid-template-columns: 1fr;
 		gap: 2rem;
-		margin-bottom: 3rem;
+		padding: 8rem 0 6rem;
 	}
 
 	.brand {
@@ -154,14 +156,17 @@
 	}
 
 	nav {
-		padding-top: 4.6rem;
+		padding-top: 1rem;
 	}
+
 	nav h4 {
 		color: var(--color-yellow);
-		font-size: var(--font-size-small);
+		font-size: 1.1rem;
 		font-weight: var(--font-weight-bold);
-		margin-bottom: 0.7rem;
+		padding-bottom: 0.5rem;
+		margin-bottom: 0.25rem;
 		opacity: 0.9;
+		border-bottom: 2px solid var(--color-scarlet);
 	}
 
 	nav ul {
@@ -179,25 +184,27 @@
 		text-decoration: none;
 		font-size: var(--font-size-small);
 		opacity: 0.8;
-		transition: color var(--transition-duration) ease;
+		transition:
+			color var(--transition-duration) ease,
+			opacity var(--transition-duration) ease;
 		display: inline-block;
 	}
 
 	nav a:hover {
 		opacity: 1;
-		color: var(--color-yellow);
+		/* color: var(--color-yellow); */
 	}
 
 	.bottom {
-		border-top: 1px solid rgba(214, 210, 189, 0.1);
-		padding-top: 2rem;
+		background: var(--color-black);
+		border-top: 4px solid var(--color-black);
+		padding: 2rem 0;
 	}
 
 	.bottom .copyright {
 		color: var(--color-tan);
-		font-size: 0.75rem;
-		margin: 0;
-		opacity: 0.6;
+		font-size: var(--font-size-small);
+		opacity: 0.5;
 	}
 
 	@media (min-width: 768px) {
@@ -210,11 +217,13 @@
 
 	@media (min-width: 1024px) {
 		.content {
-			grid-template-columns: 1fr minmax(4rem, 6rem) minmax(4rem, 6rem) minmax(4rem, 6rem) minmax(
-					4rem,
-					6rem
-				);
-			gap: 2rem 3rem;
+			grid-template-columns:
+				1fr
+				minmax(4rem, 9rem)
+				minmax(4rem, 9rem)
+				minmax(4rem, 9rem)
+				minmax(4rem, 9rem);
+			gap: 2rem;
 			margin-bottom: 3.5rem;
 		}
 	}
