@@ -37,7 +37,6 @@
 						<NewIcon name="linkedin" size="md" />
 					</a>
 				</div>
-				<div class="copyright">&copy; 2025</div>
 			</div>
 
 			<!-- Navigation columns -->
@@ -121,7 +120,7 @@
 	.brand {
 		display: flex;
 		flex-direction: column;
-		gap: 0.75rem;
+		gap: 0.85rem;
 	}
 
 	.brand :global(.logo) {
@@ -141,18 +140,17 @@
 		margin: 0;
 		opacity: 0.8;
 		max-width: 20rem;
-		line-height: 1.4;
 	}
 
 	.social {
 		display: flex;
-		gap: 0.25rem;
+		gap: 0.3rem;
+		transform: translateX(-0.5rem);
 	}
 
 	.social a {
 		color: var(--color-tan);
-		opacity: 0.6;
-		transition: all 0.2s ease;
+		transition: color var(--transition-duration-x2) ease;
 	}
 
 	.social a:hover {
