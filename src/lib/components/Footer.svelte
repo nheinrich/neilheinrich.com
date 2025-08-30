@@ -6,20 +6,19 @@
 
 <footer>
 	<div class="container">
-		<!-- Combined header and navigation -->
-		<div class="footer-content">
-			<!-- Brand section on left -->
-			<div class="brand-section">
+		<div class="content">
+			<div class="brand">
 				<Logo />
-				<p class="tagline">Sharing learnings through a mysterious, creative lens.</p>
-				<div class="social-icons">
+				<h3>Fieldnotes</h3>
+				<p class="tagline">A collection of artifacts from venturing into rabbit holes.</p>
+				<div class="social">
 					<a
 						href="https://twitter.com/"
 						target="_blank"
 						rel="noopener noreferrer"
 						aria-label="X (Twitter)"
 					>
-						<NewIcon name="twitter" size="xs" />
+						<NewIcon name="twitter" size="md" />
 					</a>
 					<a
 						href="https://instagram.com/"
@@ -27,7 +26,7 @@
 						rel="noopener noreferrer"
 						aria-label="Instagram"
 					>
-						<NewIcon name="instagram" size="xs" />
+						<NewIcon name="instagram" size="md" />
 					</a>
 					<a
 						href="https://linkedin.com/"
@@ -35,9 +34,10 @@
 						rel="noopener noreferrer"
 						aria-label="LinkedIn"
 					>
-						<NewIcon name="linkedin" size="xs" />
+						<NewIcon name="linkedin" size="md" />
 					</a>
 				</div>
+				<div class="copyright">&copy; 2025</div>
 			</div>
 
 			<!-- Navigation columns -->
@@ -58,9 +58,7 @@
 						</a>
 					</li>
 					<li>
-						<a href="https://skelly.so" target="_blank" rel="noopener noreferrer">
-							Skelly
-						</a>
+						<a href="https://skelly.so" target="_blank" rel="noopener noreferrer"> Skelly </a>
 					</li>
 					<li>
 						<a href="https://seekingnotseeking.com" target="_blank" rel="noopener noreferrer">
@@ -101,7 +99,7 @@
 <style>
 	footer {
 		background-color: var(--color-green);
-		padding: 3rem 0 2rem;
+		padding: 6rem 0 2rem;
 	}
 
 	.container {
@@ -112,7 +110,7 @@
 	}
 
 	/* Main content grid - brand + navigation */
-	.footer-content {
+	.content {
 		display: grid;
 		grid-template-columns: 1fr;
 		gap: 2rem;
@@ -120,40 +118,44 @@
 	}
 
 	/* Brand section */
-	.brand-section {
+	.brand {
 		display: flex;
 		flex-direction: column;
-		gap: 1rem;
+		gap: 0.75rem;
 	}
 
-	.brand-section :global(.logo) {
+	.brand :global(.logo) {
 		width: auto;
-		height: 2rem;
+		height: 3rem;
 		align-self: flex-start;
+	}
+
+	h3 {
+		font-size: 1.5rem;
+		color: var(--color-yellow);
 	}
 
 	.tagline {
 		color: var(--color-tan);
-		font-size: 0.875rem;
+		font-size: var(--font-size-small);
 		margin: 0;
 		opacity: 0.8;
 		max-width: 20rem;
 		line-height: 1.4;
 	}
 
-	.social-icons {
+	.social {
 		display: flex;
-		gap: 1rem;
-		margin-top: 0.5rem;
+		gap: 0.25rem;
 	}
 
-	.social-icons a {
+	.social a {
 		color: var(--color-tan);
 		opacity: 0.6;
 		transition: all 0.2s ease;
 	}
 
-	.social-icons a:hover {
+	.social a:hover {
 		opacity: 1;
 		color: var(--color-yellow);
 	}
@@ -215,15 +217,11 @@
 	}
 
 	@media (min-width: 1024px) {
-		footer {
-			padding: 4rem 0 2.5rem;
-		}
-		
 		.container {
 			padding: 0 3rem;
 		}
 
-		.footer-content {
+		.content {
 			grid-template-columns: 1fr repeat(4, 0.6fr);
 			gap: 3rem;
 			margin-bottom: 3.5rem;
@@ -235,7 +233,7 @@
 			padding: 0 4rem;
 		}
 
-		.footer-content {
+		.content {
 			gap: 4rem;
 		}
 	}
