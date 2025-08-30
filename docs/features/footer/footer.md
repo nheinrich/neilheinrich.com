@@ -1,15 +1,17 @@
 # Footer Component Feature Specification
 
-**Status**: 🚧 IN PROGRESS  
+**Status**: 🚧 IN PROGRESS - REDESIGN  
 **Implementation Date**: 2025-01-06  
+**Updated**: 2025-01-07  
 **Priority**: High  
 **Reference Images**: 
-- Desktop: [desktop.png](./desktop.png)
-- Mobile: [mobile.png](./mobile.png)
+- Desktop: [hashnode-desktop.png](./hashnode-desktop.png)
+- Mobile: [hashnode-mobile.png](./hashnode-mobile.png)
+- Previous: [linea-desktop.png](./linea-desktop.png), [linea-mobile.png](./linea-mobile.png)
 
 ## Overview
 
-Implement a bold, modern footer component inspired by the Linea design, featuring a large partially-visible logo, organized navigation sections, and social links. The footer will maintain the site's mysterious aesthetic while providing clear navigation to collections, topics, and external projects.
+Redesign footer component based on Hashnode's clean, professional approach. Moving away from the decorative Linea-inspired design with large logo to a more content-focused, navigation-oriented footer that emphasizes usability and organization.
 
 ## Visual Design Analysis
 

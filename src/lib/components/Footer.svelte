@@ -96,7 +96,7 @@
 <style>
 	footer {
 		position: relative;
-		padding-top: 12rem;
+		padding-top: 6rem;
 		padding-bottom: 2rem;
 		background-color: var(--color-green);
 		border-top: 4.5rem solid var(--color-black);
