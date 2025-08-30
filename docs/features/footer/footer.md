@@ -15,26 +15,26 @@ Redesign footer component based on Hashnode's clean, professional approach. Movi
 
 ## Visual Design Analysis
 
-### Desktop Layout (desktop.png)
-- **Background**: Light cream (#F5F2ED) - we'll adapt to our green (`--color-green`)
-- **Typography**: Clean sans-serif, ALL CAPS for both headers and links
-- **Grid Structure**: 4 equal-width columns with significant spacing
-- **Section Headers**: Bold weight, slightly larger than links
-- **Links**: Regular weight, generous line-height (approx 2.5x)
-- **Logo Treatment**: Massive "Linea" at bottom, ~50% visible, pure black
-- **Logo Position**: Spans full width, anchored to bottom edge
-- **Social Icons**: Minimal black icons, well-spaced in a row
-- **Copyright**: "@2025 LINEA" bottom left, small caps
-- **Spacing**: Very generous padding (appears to be ~100px top, ~60px sides)
+### Desktop Layout (hashnode-desktop.png)
+- **Background**: White background - adapting to our green (`--color-green`)
+- **Logo**: Normal-sized logo at top-left with company tagline
+- **Typography**: Clean sans-serif, mixed case (not all caps)
+- **Grid Structure**: Multi-column layout with clear sections
+- **Section Headers**: Emphasized headers with subtle styling
+- **Links**: Clean, readable links with good contrast
+- **Social Icons**: Grouped with logo/brand area at top-left
+- **Status Indicator**: Green "All systems operational" badge
+- **Copyright**: Bottom left with company name and legal links (Privacy, Terms, etc.) at bottom right
+- **Layout**: Professional SaaS-style footer with clear information hierarchy
 
-### Mobile Layout (mobile.png)  
-- **Single Column**: Sections stack vertically in order
-- **Section Spacing**: Large gaps between sections (~60px)
-- **Typography**: Same ALL CAPS treatment, slightly reduced size
-- **Logo**: Still partially visible but scaled down appropriately
-- **Copyright**: Centered at bottom with legal links
-- **Padding**: Generous but reduced for mobile (~40px sides)
-- **Social Icons**: Remain inline in Resources section
+### Mobile Layout (hashnode-mobile.png)  
+- **Collapsible Sections**: Accordion-style expandable sections for navigation
+- **Logo & Social**: Prominent at top with status indicator and CTA button
+- **Social Icons**: Horizontal row below logo
+- **Typography**: Same professional styling, optimized for mobile
+- **Copyright**: Stacked legal links at bottom
+- **Interaction**: Tap to expand navigation sections
+- **Clean Separation**: Clear visual separation between sections
 
 ## Implementation Status
 
