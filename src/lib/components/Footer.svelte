@@ -108,7 +108,6 @@
 		padding: 0 2rem;
 	}
 
-	/* Main content grid - brand + navigation */
 	.content {
 		display: grid;
 		grid-template-columns: 1fr;
@@ -116,22 +115,23 @@
 		margin-bottom: 3rem;
 	}
 
-	/* Brand section */
 	.brand {
 		display: flex;
 		flex-direction: column;
-		gap: 0.85rem;
+		gap: 1rem;
 	}
 
 	.brand :global(.logo) {
 		width: auto;
 		height: 3rem;
 		align-self: flex-start;
+		margin-bottom: 0.25rem;
 	}
 
 	h3 {
 		font-size: 1.5rem;
 		color: var(--color-yellow);
+		line-height: 1.25em;
 	}
 
 	.tagline {
