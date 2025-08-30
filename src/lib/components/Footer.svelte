@@ -40,15 +40,15 @@
 			</div>
 
 			<!-- Navigation columns -->
-			<div class="nav-column">
+			<nav>
 				<h4>Explore</h4>
 				<ul>
 					<li><a href="/information">Information</a></li>
 					<li><a href="/">All Posts</a></li>
 				</ul>
-			</div>
+			</nav>
 
-			<div class="nav-column">
+			<nav>
 				<h4>Building</h4>
 				<ul>
 					<li>
@@ -65,9 +65,9 @@
 						</a>
 					</li>
 				</ul>
-			</div>
+			</nav>
 
-			<div class="nav-column">
+			<nav>
 				<h4>Collections</h4>
 				<ul>
 					{#each COLLECTIONS as collection}
@@ -76,20 +76,19 @@
 						</li>
 					{/each}
 				</ul>
-			</div>
+			</nav>
 
-			<div class="nav-column">
+			<nav>
 				<h4>Topics</h4>
 				<ul>
 					{#each TOPICS as topic}
 						<li><a href="/?topics={topic.toLowerCase()}">{topic}</a></li>
 					{/each}
 				</ul>
-			</div>
+			</nav>
 		</div>
 
-		<!-- Bottom section: Copyright and legal -->
-		<div class="footer-bottom">
+		<div class="bottom">
 			<p class="copyright">© 2025 Neil Heinrich</p>
 		</div>
 	</div>
@@ -99,13 +98,6 @@
 	footer {
 		background-color: var(--color-green);
 		padding: 6rem 0 2rem;
-	}
-
-	.container {
-		width: 100%;
-		max-width: 88rem;
-		margin: 0 auto;
-		padding: 0 2rem;
 	}
 
 	.content {
@@ -118,14 +110,14 @@
 	.brand {
 		display: flex;
 		flex-direction: column;
-		gap: 1rem;
+		gap: 0.85rem;
 	}
 
 	.brand :global(.logo) {
 		width: auto;
 		height: 3rem;
 		align-self: flex-start;
-		margin-bottom: 0.25rem;
+		margin-bottom: 0.4rem;
 	}
 
 	h3 {
@@ -150,7 +142,10 @@
 
 	.social a {
 		color: var(--color-tan);
-		transition: color var(--transition-duration-x2) ease;
+		opacity: 0.8;
+		transition:
+			color var(--transition-duration) ease,
+			opacity var(--transition-duration) ease;
 	}
 
 	.social a:hover {
@@ -158,81 +153,69 @@
 		color: var(--color-yellow);
 	}
 
-	.nav-column h4 {
-		color: var(--color-tan);
-		font-size: 0.875rem;
-		font-weight: 600;
-		margin: 0 0 1rem 0;
+	nav {
+		padding-top: 4.6rem;
+	}
+	nav h4 {
+		color: var(--color-yellow);
+		font-size: var(--font-size-small);
+		font-weight: var(--font-weight-bold);
+		margin-bottom: 0.7rem;
 		opacity: 0.9;
 	}
 
-	.nav-column ul {
-		list-style: none;
-		padding: 0;
-		margin: 0;
+	nav ul {
 		display: flex;
 		flex-direction: column;
-		gap: 0.5rem;
+		gap: 0rem;
 	}
 
-	.nav-column li {
-		line-height: 1.5;
+	nav li {
+		line-height: 1em;
 	}
 
-	.nav-column a {
+	nav a {
 		color: var(--color-tan);
 		text-decoration: none;
-		font-size: 0.8rem;
-		opacity: 0.7;
-		transition: all 0.2s ease;
+		font-size: var(--font-size-small);
+		opacity: 0.8;
+		transition: color var(--transition-duration) ease;
 		display: inline-block;
 	}
 
-	.nav-column a:hover {
+	nav a:hover {
 		opacity: 1;
 		color: var(--color-yellow);
 	}
 
-	/* Bottom section */
-	.footer-bottom {
+	.bottom {
 		border-top: 1px solid rgba(214, 210, 189, 0.1);
 		padding-top: 2rem;
 	}
 
-	.copyright {
+	.bottom .copyright {
 		color: var(--color-tan);
 		font-size: 0.75rem;
 		margin: 0;
 		opacity: 0.6;
 	}
 
-	/* Responsive design */
 	@media (min-width: 768px) {
-		.footer-content {
-			grid-template-columns: 1fr repeat(2, 0.8fr);
-			gap: 3rem;
+		.content {
+			grid-template-columns: 1fr auto auto;
+			gap: 2rem 4rem;
+			justify-content: start;
 		}
 	}
 
 	@media (min-width: 1024px) {
-		.container {
-			padding: 0 3rem;
-		}
-
 		.content {
-			grid-template-columns: 1fr repeat(4, 0.6fr);
-			gap: 3rem;
+			grid-template-columns: 1fr minmax(4rem, 6rem) minmax(4rem, 6rem) minmax(4rem, 6rem) minmax(
+					4rem,
+					6rem
+				);
+			gap: 2rem 3rem;
 			margin-bottom: 3.5rem;
-		}
-	}
-
-	@media (min-width: 1440px) {
-		.container {
-			padding: 0 4rem;
-		}
-
-		.content {
-			gap: 4rem;
 		}
 	}
 </style>
