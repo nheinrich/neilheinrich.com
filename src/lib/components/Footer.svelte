@@ -143,16 +143,39 @@
 	}
 
 	.social a {
+		position: relative;
 		color: var(--color-tan);
 		opacity: 0.8;
 		transition:
 			color var(--transition-duration) ease,
 			opacity var(--transition-duration) ease;
+		transform: translateY(4px);
+	}
+
+	.social a::after {
+		content: '';
+		position: absolute;
+		bottom: -0.25rem;
+		left: 0;
+		width: 100%;
+		height: 0.185rem;
+		background-color: var(--color-scarlet);
+		border-radius: 1rem;
+		opacity: 0;
+		transform: translateY(8rem);
+		transition:
+			opacity 200ms ease-out,
+			transform 200ms ease-out;
 	}
 
 	.social a:hover {
 		opacity: 1;
 		color: var(--color-yellow);
+	}
+
+	.social a:hover::after {
+		opacity: 1;
+		transform: translateY(0);
 	}
 
 	nav {
