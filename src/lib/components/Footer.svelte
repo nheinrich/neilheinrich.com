@@ -7,12 +7,13 @@
 <footer>
 	<div class="container">
 		<div class="content">
-			<div class="brand">
-				<Logo />
+			<div class="info">
+				<div class="branding">
+					<Logo />
+					<span class="copyright">&copy; 2025</span>
+				</div>
 				<h3>Fieldnotes</h3>
-				<p class="tagline">
-					A collection of artifacts excavated from the depths venturing into rabbit holes.
-				</p>
+				<p class="tagline">A collection of artifacts mined from the depths of rabbit holes.</p>
 				<div class="social">
 					<a
 						href="https://twitter.com/"
@@ -20,7 +21,7 @@
 						rel="noopener noreferrer"
 						aria-label="X (Twitter)"
 					>
-						<NewIcon name="twitter" size="md" />
+						<NewIcon name="twitter" size="lg" />
 					</a>
 					<a
 						href="https://instagram.com/"
@@ -28,7 +29,7 @@
 						rel="noopener noreferrer"
 						aria-label="Instagram"
 					>
-						<NewIcon name="instagram" size="md" />
+						<NewIcon name="instagram" size="lg" />
 					</a>
 					<a
 						href="https://linkedin.com/"
@@ -36,7 +37,7 @@
 						rel="noopener noreferrer"
 						aria-label="LinkedIn"
 					>
-						<NewIcon name="linkedin" size="md" />
+						<NewIcon name="linkedin" size="lg" />
 					</a>
 				</div>
 			</div>
@@ -90,11 +91,6 @@
 			</nav>
 		</div>
 	</div>
-	<div class="bottom">
-		<div class="container">
-			<p class="copyright">&copy;2025</p>
-		</div>
-	</div>
 </footer>
 
 <style>
@@ -109,19 +105,30 @@
 		padding: 8rem 0 6rem;
 	}
 
-	.brand {
+	.info {
 		display: flex;
 		flex-direction: column;
 		gap: 0.85rem;
 	}
 
-	.brand :global(.logo) {
+	.info :global(.logo) {
 		width: auto;
 		height: 3rem;
 		align-self: flex-start;
 		margin-bottom: 0.4rem;
 	}
-
+	.branding {
+		display: flex;
+		flex-direction: row;
+		align-items: end;
+		gap: 0.4rem;
+	}
+	.copyright {
+		font-size: 0.75rem;
+		color: var(--color-tan);
+		opacity: 0.3;
+		transform: translateX(-0.3rem) translateY(-0.2rem);
+	}
 	h3 {
 		font-size: 1.5rem;
 		color: var(--color-yellow);
@@ -149,20 +156,23 @@
 		transition:
 			color var(--transition-duration) ease,
 			opacity var(--transition-duration) ease;
-		transform: translateY(4px);
+	}
+
+	.social a :global(.icon-container) {
+		width: 38px;
 	}
 
 	.social a::after {
 		content: '';
 		position: absolute;
-		bottom: -0.25rem;
+		bottom: 0.25rem;
 		left: 0;
 		width: 100%;
 		height: 0.185rem;
 		background-color: var(--color-scarlet);
 		border-radius: 1rem;
 		opacity: 0;
-		transform: translateY(8rem);
+		transform: translateY(0.125rem);
 		transition:
 			opacity 200ms ease-out,
 			transform 200ms ease-out;
@@ -216,18 +226,6 @@
 	nav a:hover {
 		opacity: 1;
 		/* color: var(--color-yellow); */
-	}
-
-	.bottom {
-		background: var(--color-black);
-		border-top: 4px solid var(--color-black);
-		padding: 2rem 0;
-	}
-
-	.bottom .copyright {
-		color: var(--color-tan);
-		font-size: var(--font-size-small);
-		opacity: 0.5;
 	}
 
 	@media (min-width: 768px) {
