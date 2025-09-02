@@ -8,10 +8,14 @@ node_modules
 .wrangler
 /.svelte-kit
 /build
+temp
 
 # OS
 .DS_Store
 Thumbs.db
+
+# IDE
+.claude
 
 # Env
 .env
