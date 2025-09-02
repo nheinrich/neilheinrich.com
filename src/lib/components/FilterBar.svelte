@@ -333,10 +333,6 @@
 		background: rgba(250, 215, 20, 0.1);
 	}
 
-	.filter-icon {
-		flex-shrink: 0;
-	}
-
 	.filter-overlay {
 		position: absolute;
 		top: -1.5rem;
@@ -357,14 +353,14 @@
 	.word::after {
 		content: '';
 		position: absolute;
-		bottom: 0;
+		bottom: -0.125rem;
 		left: 0;
 		width: 100%;
 		height: 0.185rem;
 		background-color: var(--color-scarlet);
 		border-radius: 1rem;
 		opacity: 0;
-		transform: translateY(2px);
+		transform: translateY(0.25rem);
 		transition:
 			opacity 200ms ease-out,
 			transform 200ms ease-out;
